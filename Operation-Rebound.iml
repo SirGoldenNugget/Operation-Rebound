@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites/Hitman 1" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites/Man Blue" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites/Man Brown" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites/Man Old" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites/Robot 1" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites/Soldier 1" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites/Survivor 1" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites/Tiles" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites/Woman Green" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites/Zombie 1" type="java-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
