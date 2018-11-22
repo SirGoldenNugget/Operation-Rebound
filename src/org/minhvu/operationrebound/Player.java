@@ -7,207 +7,184 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-public class Player
-{
-	private static BufferedImage image = Game.getInstance().getChararcters().getSprite(164,	88,	49,	43);
+public class Player {
+    private static BufferedImage image = Game.getInstance().getChararcters().getSprite(164, 88, 49, 43);
 
-	private Point location;
-	private int speed;
+    private Point location;
+    private int speed;
 
-	private boolean uppressed;
-	private boolean downpressed;
-	private boolean leftpressed;
-	private boolean rightpressed;
+    private boolean uppressed;
+    private boolean downpressed;
+    private boolean leftpressed;
+    private boolean rightpressed;
 
-	private int ammo;
-	private int maxAmmo;
-	private int reloadTime;
-	private long reloadStart;
+    private int ammo;
+    private int maxAmmo;
+    private int reloadTime;
+    private long reloadStart;
+    private boolean reloading;
 
-	public Player()
-	{
-		location = new Point((Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) / 2, Game.getInstance().getHeight() - 200);
-		speed = 4;
+    public Player() {
+        location = new Point((Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) / 2, Game.getInstance().getHeight() - 200);
+        speed = 4;
 
-		uppressed = false;
-		downpressed = false;
-		leftpressed = false;
-		rightpressed = false;
+        uppressed = false;
+        downpressed = false;
+        leftpressed = false;
+        rightpressed = false;
 
-		maxAmmo = 15;
-		ammo = maxAmmo;
-		reloadTime = 1336;
-	}
+        maxAmmo = 15;
+        ammo = maxAmmo;
+        reloadTime = 1336;
+        reloading = false;
+    }
 
-	public boolean hasCollision()
-	{
-		for (int i = 0; i < Game.getInstance().getMaps().getCurrentMap().getCollisionMap().length; ++i)
-		{
-			for (int j = 0; j < Game.getInstance().getMaps().getCurrentMap().getCollisionMap()[i].length; ++j)
-			{
-				if (Game.getInstance().getMaps().getCurrentMap().getCollisionMap()[i][j] != 0 && getBounds().intersects(new Rectangle2D.Float(j * 64, i * 64, 64, 64)))
-				{
-					return true;
-				}
-			}
-		}
+    public void paint(Graphics2D g2d) {
+        AffineTransform transform = g2d.getTransform();
 
-		return false;
-	}
-	public void paint(Graphics2D g2d)
-	{
-		AffineTransform transform = g2d.getTransform();
+        Point mousePostion = MouseInfo.getPointerInfo().getLocation();
+        double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
 
-		Point mousePostion = MouseInfo.getPointerInfo().getLocation();
-		double angle = Math.atan2(mousePostion.y - getCenter().y , mousePostion.x - getCenter().x);
+        g2d.rotate(angle, getCenter().x, getCenter().y);
+        g2d.drawImage(image, location.x, location.y, Game.getInstance());
+        g2d.setTransform(transform);
+    }
 
-		g2d.rotate(angle, getCenter().x, getCenter().y);
-		g2d.drawImage(image, location.x, location.y, Game.getInstance());
-		g2d.setTransform(transform);
-	}
+    public Point getCenter() {
+        return new Point(location.x + getDimensions().width / 2, location.y + getDimensions().height / 2);
+    }
 
-	public void move()
-	{
-		if (uppressed)
-		{
-			if (location.y - speed > 0)
-			{
-				location.y -= speed;
-			}
+    public Dimension getDimensions() {
+        return new Dimension(image.getWidth(Game.getInstance()), image.getHeight(Game.getInstance()));
+    }
 
-			if (hasCollision())
-			{
-				location.y += speed;
-			}
-		}
+    public void move() {
+        if (uppressed) {
+            if (location.y - speed > 0) {
+                location.y -= speed;
+            }
 
-		if (downpressed)
-		{
-			if (location.y + speed < Game.getInstance().getHeight() - image.getHeight(Game.getInstance()))
-			{
-				location.y += speed;
-			}
+            if (hasCollision()) {
+                location.y += speed;
+            }
+        }
 
-			if (hasCollision())
-			{
-				location.y -= speed;
-			}
-		}
+        if (downpressed) {
+            if (location.y + speed < Game.getInstance().getHeight() - image.getHeight(Game.getInstance())) {
+                location.y += speed;
+            }
 
-		if (leftpressed)
-		{
-			if (location.x - speed > 0)
-			{
-				location.x -= speed;
-			}
+            if (hasCollision()) {
+                location.y -= speed;
+            }
+        }
 
-			if (hasCollision())
-			{
-				location.x += speed;
-			}
-		}
+        if (leftpressed) {
+            if (location.x - speed > 0) {
+                location.x -= speed;
+            }
 
-		if (rightpressed)
-		{
-			if (location.x + speed < Game.getInstance().getWidth() - image.getWidth(Game.getInstance()))
-			{
-				location.x += speed;
-			}
+            if (hasCollision()) {
+                location.x += speed;
+            }
+        }
 
-			if (hasCollision())
-			{
-				location.x -= speed;
-			}
-		}
-	}
+        if (rightpressed) {
+            if (location.x + speed < Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) {
+                location.x += speed;
+            }
 
-	public void mouseReleased(MouseEvent e)
-	{
-		if (e.getButton() == MouseEvent.BUTTON1)
-		{
-			if (ammo > 0)
-			{
-				Point mousePostion = MouseInfo.getPointerInfo().getLocation();
-				double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
-				Game.getInstance().getBullets().add(new Bullet(getCenter(), 10, 500, angle));
+            if (hasCollision()) {
+                location.x -= speed;
+            }
+        }
+    }
 
-				if (--ammo == 0)
-				{
-					reloadStart = System.currentTimeMillis();
-				}
-			}
+    public boolean hasCollision() {
+        for (int i = 0; i < Game.getInstance().getMaps().getCurrentMap().getCollisionMap().length; ++i) {
+            for (int j = 0; j < Game.getInstance().getMaps().getCurrentMap().getCollisionMap()[i].length; ++j) {
+                if (Game.getInstance().getMaps().getCurrentMap().getCollisionMap()[i][j] != 0 && getBounds().intersects(new Rectangle2D.Float(j * 64, i * 64, 64, 64))) {
+                    return true;
+                }
+            }
+        }
 
-			else if (System.currentTimeMillis() - reloadStart > reloadTime)
-			{
-				ammo = maxAmmo;
-				reloadStart = 0;
-			}
-		}
-	}
+        return false;
+    }
 
-	public void keyReleased(KeyEvent e)
-	{
-		if (e.getKeyCode() == KeyEvent.VK_W)
-		{
-			uppressed = false;
-		}
+    public Rectangle getBounds() {
+        return new Rectangle(location.x, location.y, getDimensions().width, getDimensions().height);
+    }
 
-		if (e.getKeyCode() == KeyEvent.VK_S)
-		{
-			downpressed = false;
-		}
+    public void mouseReleased(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            if (ammo > 0) {
+                Point mousePostion = MouseInfo.getPointerInfo().getLocation();
+                double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
+                Game.getInstance().getBullets().add(new Bullet(getCenter(), 10, 500, angle));
 
-		if (e.getKeyCode() == KeyEvent.VK_A)
-		{
-			leftpressed = false;
-		}
+                if (--ammo == 0) {
+                    reloadStart = System.currentTimeMillis();
+                }
+            } else if (System.currentTimeMillis() - reloadStart > reloadTime) {
+                ammo = maxAmmo;
+                reloadStart = 0;
+            }
+        }
+    }
 
-		if (e.getKeyCode() == KeyEvent.VK_D)
-		{
-			rightpressed = false;
-		}
-	}
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_W) {
+            uppressed = false;
+        }
 
-	public void keyPressed(KeyEvent e)
-	{
-		if (e.getKeyCode() == KeyEvent.VK_W)
-		{
-			uppressed = true;
-		}
+        if (e.getKeyCode() == KeyEvent.VK_S) {
+            downpressed = false;
+        }
 
-		if (e.getKeyCode() == KeyEvent.VK_S)
-		{
-			downpressed = true;
-		}
+        if (e.getKeyCode() == KeyEvent.VK_A) {
+            leftpressed = false;
+        }
 
-		if (e.getKeyCode() == KeyEvent.VK_A)
-		{
-			leftpressed = true;
-		}
+        if (e.getKeyCode() == KeyEvent.VK_D) {
+            rightpressed = false;
+        }
+    }
 
-		if (e.getKeyCode() == KeyEvent.VK_D)
-		{
-			rightpressed = true;
-		}
-	}
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_W) {
+            uppressed = true;
+        }
 
-	public Point getLocation()
-	{
-		return location;
-	}
+        if (e.getKeyCode() == KeyEvent.VK_S) {
+            downpressed = true;
+        }
 
-	public Dimension getDimensions()
-	{
-		return new Dimension(image.getWidth(Game.getInstance()), image.getHeight(Game.getInstance()));
-	}
+        if (e.getKeyCode() == KeyEvent.VK_A) {
+            leftpressed = true;
+        }
 
-	public Rectangle getBounds()
-	{
-		return new Rectangle(location.x, location.y, getDimensions().width, getDimensions().height);
-	}
+        if (e.getKeyCode() == KeyEvent.VK_D) {
+            rightpressed = true;
+        }
 
-	public Point getCenter()
-	{
-		return new Point(location.x + getDimensions().width / 2, location.y + getDimensions().height / 2);
-	}
+        if (e.getKeyCode() == KeyEvent.VK_R) {
+            reload();
+        }
+    }
+
+    public void reload() {
+        if (reloading) {
+            if (System.currentTimeMillis() - reloadStart > reloadTime) {
+                ammo = maxAmmo;
+                reloadStart = 0;
+            }
+        } else if (ammo != maxAmmo) {
+            reloadStart = System.currentTimeMillis();
+        }
+    }
+
+    public Point getLocation() {
+        return location;
+    }
 }
