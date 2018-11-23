@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @SuppressWarnings("serial")
@@ -162,18 +161,19 @@ public class Game extends JPanel implements Runnable {
         this.setBackground(Color.WHITE);
 
         // Movement Of All Objects.
+
+		for (Bullet bullet : bullets)
+		{
+			bullet.move();
+		}
+
         player.move();
 
-//		for (Bullet bullet : bullets)
-//		{
-//			bullet.move();
-//		}
-
-        Iterator<Bullet> bulletIterator = bullets.iterator();
-
-        while (bulletIterator.hasNext()) {
-            bulletIterator.next().move();
-        }
+//        Iterator<Bullet> bulletIterator = bullets.iterator();
+//
+//        while (bulletIterator.hasNext()) {
+//            bulletIterator.next().move();
+//        }
 
         bullets.removeIf(bullet -> !bullet.isAlive());
 

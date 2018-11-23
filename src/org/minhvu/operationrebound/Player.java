@@ -121,7 +121,8 @@ public class Player {
             if (ammo > 0) {
                 Point mousePostion = MouseInfo.getPointerInfo().getLocation();
                 double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
-                Game.getInstance().getBullets().add(new Bullet(getCenter(), 10, 500, angle));
+                System.out.println(angle * 180 / Math.PI + " " + (location.x - getCenter().x) + "," + (location.y - getCenter().y));
+                Game.getInstance().getBullets().add(new Bullet(new Point((int) (getCenter().x + 24 * Math.cos(angle) + 5 * -Math.sin(angle)), (int) (getCenter().y + 24 * Math.sin(angle) + 5 * Math.cos(angle))), 0, 500, angle));
 
                 if (--ammo == 0) {
                     reloadStart = System.currentTimeMillis();
