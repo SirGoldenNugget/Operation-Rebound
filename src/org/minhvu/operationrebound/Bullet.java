@@ -66,6 +66,13 @@ public class Bullet {
             }
         }
 
+        for (Object object : Game.getInstance().getEnemies()) {
+            Enemy enemy = (Enemy) object;
+            if (getBounds().intersects(enemy.getBounds())) {
+                return true;
+            }
+        }
+
         return false;
     }
 

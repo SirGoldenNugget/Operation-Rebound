@@ -168,7 +168,7 @@ public class Game extends JPanel implements Runnable {
         }
 
         for (Enemy enemy : enemies) {
-            enemy.update(player);
+            enemy.update();
         }
 
         bullets.removeIf(bullet -> !bullet.isAlive());
@@ -234,5 +234,9 @@ public class Game extends JPanel implements Runnable {
 
     public CopyOnWriteArrayList getBullets() {
         return bullets;
+    }
+
+    public CopyOnWriteArrayList getEnemies() {
+        return enemies;
     }
 }

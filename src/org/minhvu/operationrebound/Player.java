@@ -4,15 +4,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 
-public class Player {
+public class Player extends Entity {
     private Sprite sprite;
-    private BufferedImage image;
-
-    private Point location;
-    private int speed;
 
     private boolean uppressed;
     private boolean downpressed;
@@ -28,7 +22,7 @@ public class Player {
         sprite = new Sprites().getSprite("Hitman");
         image = sprite.getPistolImage();
 
-        location = new Point((Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) / 2, Game.getInstance().getHeight() - 200);
+        location = new Position((Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) / 2, Game.getInstance().getHeight() - 200);
         speed = 4;
 
         uppressed = false;
@@ -49,56 +43,52 @@ public class Player {
         double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
 
         g2d.rotate(angle, getCenter().x, getCenter().y);
-        g2d.drawImage(image, location.x, location.y, Game.getInstance());
+        g2d.drawImage(image, (int) location.getX(), (int) location.getY(), Game.getInstance());
         g2d.setTransform(transform);
     }
 
     public Point getCenter() {
-        return new Point(location.x + 15, location.y + 22);
-    }
-
-    private Dimension getDimensions() {
-        return new Dimension(image.getWidth(Game.getInstance()), image.getHeight(Game.getInstance()));
+        return new Point((int) (location.getX() + sprite.getCenter().x), (int) (location.getY() + sprite.getCenter().y));
     }
 
     public void update() {
         if (uppressed) {
-            if (location.y - speed > 0) {
-                location.y -= speed;
+            if (location.getY() - speed > 0) {
+                location.setY(location.getY() - speed);
             }
 
             if (hasCollision()) {
-                location.y += speed;
+                location.setY(location.getY() + speed);
             }
         }
 
         if (downpressed) {
-            if (location.y + speed < Game.getInstance().getHeight() - image.getHeight(Game.getInstance())) {
-                location.y += speed;
+            if (location.getY() + speed < Game.getInstance().getHeight() - image.getHeight(Game.getInstance())) {
+                location.setY(location.getY() + speed);
             }
 
             if (hasCollision()) {
-                location.y -= speed;
+                location.setY(location.getY() - speed);
             }
         }
 
         if (leftpressed) {
-            if (location.x - speed > 0) {
-                location.x -= speed;
+            if (location.getX() - speed > 0) {
+                location.setX(location.getX() - speed);
             }
 
             if (hasCollision()) {
-                location.x += speed;
+                location.setX(location.getX() + speed);
             }
         }
 
         if (rightpressed) {
-            if (location.x + speed < Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) {
-                location.x += speed;
+            if (location.getX() + speed < Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) {
+                location.setX(location.getX() + speed);
             }
 
             if (hasCollision()) {
-                location.x -= speed;
+                location.setX(location.getX() - speed);
             }
         }
 
@@ -107,22 +97,6 @@ public class Player {
         } else {
             image = sprite.getMachineImage();
         }
-    }
-
-    public boolean hasCollision() {
-        for (int i = 0; i < Game.getInstance().getMaps().getCurrentMap().getCollisionMap().length; ++i) {
-            for (int j = 0; j < Game.getInstance().getMaps().getCurrentMap().getCollisionMap()[i].length; ++j) {
-                if (Game.getInstance().getMaps().getCurrentMap().getCollisionMap()[i][j] != 0 && getBounds().intersects(new Rectangle2D.Float(j * 64, i * 64, 64, 64))) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public Rectangle getBounds() {
-        return new Rectangle(location.x, location.y, getDimensions().width, getDimensions().height);
     }
 
     public void mouseReleased(MouseEvent e) {

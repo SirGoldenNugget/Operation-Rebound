@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class  Entity {
     protected BufferedImage image;
-    protected Point location;
+    protected Position location;
     protected int speed;
 
     private Dimension getDimensions() {
@@ -14,7 +14,7 @@ public abstract class  Entity {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(location.x, location.y, getDimensions().width, getDimensions().height);
+        return new Rectangle((int)location.getX(), (int)location.getY(), getDimensions().width, getDimensions().height);
     }
 
     public boolean hasCollision() {
