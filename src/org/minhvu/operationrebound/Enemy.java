@@ -5,12 +5,18 @@ import java.awt.geom.AffineTransform;
 
 public class Enemy extends Entity {
     private Point center;
+    private double damage = 10;
+    private long damageTimer = System.currentTimeMillis();
+    private int damageTime = 500;
+    private boolean alive;
 
     public Enemy() {
         image = Game.getInstance().getChararcters().getSprite(424, 0, 35, 43);
         location = new Position(0.0, 0.0);
         center = new Point(15, 22);
         speed = 2;
+        health = 10;
+        alive = true;
     }
 
     public void update() {
@@ -25,7 +31,7 @@ public class Enemy extends Entity {
             }
         }
 
-        if (location.getY() + speed * Math.sin(angle) < Game.getInstance().getHeight() - image.getHeight(Game.getInstance()) && location.getY()+ speed * Math.sin(angle) > 0) {
+        if (location.getY() + speed * Math.sin(angle) < Game.getInstance().getHeight() - image.getHeight(Game.getInstance()) && location.getY() + speed * Math.sin(angle) > 0) {
             location.setY(location.getY() + speed * Math.sin(angle));
 
             if (hasCollision()) {
@@ -34,7 +40,10 @@ public class Enemy extends Entity {
         }
 
         if (getBounds().intersects(player.getBounds())) {
-
+            if (System.currentTimeMillis() - damageTimer > damageTime) {
+                damageTimer = System.currentTimeMillis();
+                player.damage(damage);
+            }
         }
     }
 
@@ -51,5 +60,18 @@ public class Enemy extends Entity {
 
     private Point getCenter() {
         return new Point((int) (location.getX() + center.x), (int) (location.getY() + center.y));
+    }
+
+    @Override
+    public void damage(double damage) {
+        health -= damage;
+
+        if (health <= 0) {
+            alive = false;
+        }
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 }

@@ -172,6 +172,7 @@ public class Game extends JPanel implements Runnable {
         }
 
         bullets.removeIf(bullet -> !bullet.isAlive());
+        enemies.removeIf(enemy -> !enemy.isAlive());
         player.update();
         repaint();
     }

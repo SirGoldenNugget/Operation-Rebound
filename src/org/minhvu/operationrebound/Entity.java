@@ -8,6 +8,7 @@ public abstract class  Entity {
     protected BufferedImage image;
     protected Position location;
     protected int speed;
+    protected double health;
 
     private Dimension getDimensions() {
         return new Dimension(image.getWidth(Game.getInstance()), image.getHeight(Game.getInstance()));
@@ -28,4 +29,6 @@ public abstract class  Entity {
 
         return false;
     }
+
+    public abstract void damage(double damage);
 }

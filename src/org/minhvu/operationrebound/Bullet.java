@@ -12,6 +12,7 @@ public class Bullet {
     private int range;
     private double angle;
     private int radius;
+    private double damage;
 
     private boolean alive;
 
@@ -24,6 +25,7 @@ public class Bullet {
         this.range = range;
         this.angle = angle;
         radius = 5;
+        damage = 10;
 
         alive = true;
 
@@ -69,6 +71,7 @@ public class Bullet {
         for (Object object : Game.getInstance().getEnemies()) {
             Enemy enemy = (Enemy) object;
             if (getBounds().intersects(enemy.getBounds())) {
+                enemy.damage(damage);
                 return true;
             }
         }

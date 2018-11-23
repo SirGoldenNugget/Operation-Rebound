@@ -30,6 +30,7 @@ public class Player extends Entity {
         leftpressed = false;
         rightpressed = false;
 
+        health = 100;
         maxAmmo = 10;
         ammo = maxAmmo;
         reloadTime = 1336;
@@ -166,6 +167,15 @@ public class Player extends Entity {
                         }
                     }, reloadTime
             );
+        }
+    }
+
+    @Override
+    public void damage(double damage) {
+        health -= damage;
+
+        if (health <= 0) {
+            System.exit(1);
         }
     }
 }
