@@ -8,7 +8,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Player {
-    private static BufferedImage image = Game.getInstance().getChararcters().getSprite(164, 88, 49, 43);
+    private Sprite sprite;
+    private BufferedImage image;
 
     private Point location;
     private int speed;
@@ -25,6 +26,9 @@ public class Player {
     private boolean reloading;
 
     public Player() {
+        sprite = new Sprites().getSprite("Hitman");
+        image = sprite.getPistolImage();
+
         location = new Point((Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) / 2, Game.getInstance().getHeight() - 200);
         speed = 4;
 
@@ -51,14 +55,24 @@ public class Player {
     }
 
     public Point getCenter() {
-        return new Point(location.x + getDimensions().width / 2, location.y + getDimensions().height / 2);
+        return new Point(location.x + 15, location.y + 22);
     }
 
     public Dimension getDimensions() {
         return new Dimension(image.getWidth(Game.getInstance()), image.getHeight(Game.getInstance()));
     }
 
-    public void move() {
+    public void update() {
+        move();
+
+        if (reloading) {
+            image = sprite.getReloadImage();
+        } else {
+            image = sprite.getMachineImage();
+        }
+    }
+
+    private void move() {
         if (uppressed) {
             if (location.y - speed > 0) {
                 location.y -= speed;
@@ -121,15 +135,17 @@ public class Player {
             if (ammo > 0) {
                 Point mousePostion = MouseInfo.getPointerInfo().getLocation();
                 double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
-                System.out.println(angle * 180 / Math.PI + " " + (location.x - getCenter().x) + "," + (location.y - getCenter().y));
-                Game.getInstance().getBullets().add(new Bullet(new Point((int) (getCenter().x + 24 * Math.cos(angle) + 5 * -Math.sin(angle)), (int) (getCenter().y + 24 * Math.sin(angle) + 5 * Math.cos(angle))), 0, 500, angle));
+                Game.getInstance().getBullets().add(new Bullet(new Point((int) (getCenter().x + 24 * Math.cos(angle) + 5 * -Math.sin(angle)),
+                        (int) (getCenter().y + 24 * Math.sin(angle) + 5 * Math.cos(angle))), 10, 500, angle));
 
                 if (--ammo == 0) {
                     reloadStart = System.currentTimeMillis();
+                    reloading = true;
                 }
             } else if (System.currentTimeMillis() - reloadStart > reloadTime) {
                 ammo = maxAmmo;
                 reloadStart = 0;
+                reloading = false;
             }
         }
     }
@@ -174,14 +190,16 @@ public class Player {
         }
     }
 
-    public void reload() {
+    private void reload() {
         if (reloading) {
             if (System.currentTimeMillis() - reloadStart > reloadTime) {
                 ammo = maxAmmo;
                 reloadStart = 0;
+                reloading = false;
             }
         } else if (ammo != maxAmmo) {
             reloadStart = System.currentTimeMillis();
+            reloading = true;
         }
     }
 
@@ -189,3 +207,4 @@ public class Player {
         return location;
     }
 }
+

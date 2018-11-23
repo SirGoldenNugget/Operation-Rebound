@@ -42,7 +42,11 @@ public class Bullet {
         g2d.setTransform(transform);
     }
 
-    public void move() {
+    public void update() {
+        move();
+    }
+
+    private  void move() {
         center.setLocation(center.getX() + speed * Math.cos(angle), center.getY() + speed * Math.sin(angle));
 
 //		Point difference = new Point(center.x - initial.x, center.y - initial.y);

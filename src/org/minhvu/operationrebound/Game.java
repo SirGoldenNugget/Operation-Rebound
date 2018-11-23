@@ -160,23 +160,12 @@ public class Game extends JPanel implements Runnable {
     private void update() {
         this.setBackground(Color.WHITE);
 
-        // Movement Of All Objects.
-
-		for (Bullet bullet : bullets)
-		{
-			bullet.move();
-		}
-
-        player.move();
-
-//        Iterator<Bullet> bulletIterator = bullets.iterator();
-//
-//        while (bulletIterator.hasNext()) {
-//            bulletIterator.next().move();
-//        }
+        for (Bullet bullet : bullets) {
+            bullet.update();
+        }
 
         bullets.removeIf(bullet -> !bullet.isAlive());
-
+        player.update();
         repaint();
     }
 
