@@ -22,7 +22,6 @@ public class Player {
     private int ammo;
     private int maxAmmo;
     private int reloadTime;
-    private long reloadStart;
     private boolean reloading;
 
     public Player() {
@@ -37,7 +36,7 @@ public class Player {
         leftpressed = false;
         rightpressed = false;
 
-        maxAmmo = 15;
+        maxAmmo = 10;
         ammo = maxAmmo;
         reloadTime = 1336;
         reloading = false;
@@ -58,21 +57,11 @@ public class Player {
         return new Point(location.x + 15, location.y + 22);
     }
 
-    public Dimension getDimensions() {
+    private Dimension getDimensions() {
         return new Dimension(image.getWidth(Game.getInstance()), image.getHeight(Game.getInstance()));
     }
 
     public void update() {
-        move();
-
-        if (reloading) {
-            image = sprite.getReloadImage();
-        } else {
-            image = sprite.getMachineImage();
-        }
-    }
-
-    private void move() {
         if (uppressed) {
             if (location.y - speed > 0) {
                 location.y -= speed;
@@ -111,6 +100,12 @@ public class Player {
             if (hasCollision()) {
                 location.x -= speed;
             }
+        }
+
+        if (reloading) {
+            image = sprite.getReloadImage();
+        } else {
+            image = sprite.getMachineImage();
         }
     }
 
@@ -198,10 +193,6 @@ public class Player {
                     }, reloadTime
             );
         }
-    }
-
-    public Point getLocation() {
-        return location;
     }
 }
 

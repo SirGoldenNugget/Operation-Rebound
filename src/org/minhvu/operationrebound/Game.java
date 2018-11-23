@@ -22,6 +22,7 @@ public class Game extends JPanel implements Runnable {
     // Objects Used In The Game.
     private Player player;
     private CopyOnWriteArrayList<Bullet> bullets;
+    private CopyOnWriteArrayList<Enemy> enemies;
 
     // State Of The Game.
 
@@ -107,6 +108,8 @@ public class Game extends JPanel implements Runnable {
         // Initialize Everyhing.
         player = new Player();
         bullets = new CopyOnWriteArrayList<>();
+        enemies = new CopyOnWriteArrayList<>();
+        enemies.add(new Enemy());
 
         // Begins The Thread.
         start();
@@ -164,6 +167,10 @@ public class Game extends JPanel implements Runnable {
             bullet.update();
         }
 
+        for (Enemy enemy : enemies) {
+            enemy.update(player);
+        }
+
         bullets.removeIf(bullet -> !bullet.isAlive());
         player.update();
         repaint();
@@ -200,6 +207,10 @@ public class Game extends JPanel implements Runnable {
 
         for (Bullet bullet : bullets) {
             bullet.paint(g2d);
+        }
+
+        for (Enemy enemy : enemies) {
+            enemy.paint(g2d, player);
         }
 
         player.paint(g2d);

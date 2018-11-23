@@ -8,7 +8,8 @@ class Sprites {
     private HashMap<String, Sprite> sprites = new HashMap<>();
 
     public Sprites() {
-        sprites.put("Hitman", new Sprite(Game.getInstance().getChararcters().getSprite(164, 88, 49, 43),
+        sprites.put("Hitman", new Sprite(
+                Game.getInstance().getChararcters().getSprite(164, 88, 49, 43),
                 Game.getInstance().getChararcters().getSprite(216, 44, 49, 43),
                 Game.getInstance().getChararcters().getSprite(313, 132, 39, 43),
                 new Point(15, 22)));
