@@ -139,13 +139,8 @@ public class Player {
                         (int) (getCenter().y + 24 * Math.sin(angle) + 5 * Math.cos(angle))), 10, 500, angle));
 
                 if (--ammo == 0) {
-                    reloadStart = System.currentTimeMillis();
-                    reloading = true;
+                    reload();
                 }
-            } else if (System.currentTimeMillis() - reloadStart > reloadTime) {
-                ammo = maxAmmo;
-                reloadStart = 0;
-                reloading = false;
             }
         }
     }
@@ -191,15 +186,17 @@ public class Player {
     }
 
     private void reload() {
-        if (reloading) {
-            if (System.currentTimeMillis() - reloadStart > reloadTime) {
-                ammo = maxAmmo;
-                reloadStart = 0;
-                reloading = false;
-            }
-        } else if (ammo != maxAmmo) {
-            reloadStart = System.currentTimeMillis();
+        if (!reloading && ammo != maxAmmo) {
             reloading = true;
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            ammo = maxAmmo;
+                            reloading = false;
+                        }
+                    }, reloadTime
+            );
         }
     }
 
