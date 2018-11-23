@@ -2,16 +2,13 @@ package org.minhvu.operationrebound;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
-public class Enemy {
-    private BufferedImage image;
+public class Enemy extends Entity {
 
-    private Point location;
     private Point center;
-    private int speed;
 
     public Enemy() {
+        super();
         image = Game.getInstance().getChararcters().getSprite(424, 0, 35, 43);
         location = new Point(0, 0);
         center = new Point(15, 22);
@@ -20,10 +17,29 @@ public class Enemy {
 
     public void update(Player player) {
         double angle = Math.atan2(player.getCenter().y - getCenter().y, player.getCenter().x - getCenter().x);
-        location.x += speed * Math.cos(angle);
-        location.y += speed * Math.sin(angle);
 
+        if (location.x + speed * Math.cos(angle) < Game.getInstance().getWidth() - image.getWidth(Game.getInstance()) && location.x + speed * Math.cos(angle) > 0) {
+            location.x += speed * Math.cos(angle);
+
+            if (hasCollision()) {
+                location.x -= speed * Math.cos(angle);
+            }
+        }
+
+        if (location.y + speed * Math.sin(angle) < Game.getInstance().getHeight() - image.getHeight(Game.getInstance()) && location.y + speed * Math.sin(angle) > 0) {
+            location.y += speed * Math.sin(angle);
+
+            if (hasCollision()) {
+                location.y -= speed * Math.sin(angle);
+            }
+        }
+
+        if (getBounds().intersects(player.getBounds())) {
+
+        }
     }
+
+
 
     public void paint(Graphics2D g2d, Player player) {
         AffineTransform transform = g2d.getTransform();
