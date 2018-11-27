@@ -18,6 +18,10 @@ public class Player extends Entity {
     private int reloadTime;
     private boolean reloading;
 
+    private long regenTimer;
+    private int regenTime;
+    private int regen;
+
     public Player() {
         sprite = new Sprites().getSprite("Hitman");
 
@@ -37,6 +41,10 @@ public class Player extends Entity {
         ammo = maxAmmo;
         reloadTime = 1336;
         reloading = false;
+
+        regenTimer = System.currentTimeMillis();
+        regenTime = 500;
+        regen = 1;
     }
 
     public void paint(Graphics2D g2d) {
@@ -48,53 +56,48 @@ public class Player extends Entity {
         double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
 
         g2d.rotate(angle, getCenter().x, getCenter().y);
-        g2d.drawImage(image, (int) location.getX(), (int) location.getY(), Game.getInstance());
+        g2d.drawImage(image, location.getX(), location.getY(), Game.getInstance());
         g2d.setTransform(transform);
-    }
-
-    @Override
-    public Point getCenter() {
-        return new Point((int) (location.getX() + sprite.getCenter().x), (int) (location.getY() + sprite.getCenter().y));
     }
 
     public void update() {
         if (uppressed) {
-            if (location.getY() - speed > 0) {
-                location.setY(location.getY() - speed);
+            if (location.y - speed > 0) {
+                location.y -= speed;
             }
 
             if (hasCollision()) {
-                location.setY(location.getY() + speed);
+                location.y += speed;
             }
         }
 
         if (downpressed) {
-            if (location.getY() + speed < Game.getInstance().getHeight() - image.getHeight(Game.getInstance())) {
-                location.setY(location.getY() + speed);
+            if (location.y + speed < Game.getInstance().getHeight() - image.getHeight(Game.getInstance())) {
+                location.y += speed;
             }
 
             if (hasCollision()) {
-                location.setY(location.getY() - speed);
+                location.y -= speed;
             }
         }
 
         if (leftpressed) {
-            if (location.getX() - speed > 0) {
-                location.setX(location.getX() - speed);
+            if (location.x - speed > 0) {
+                location.x -= speed;
             }
 
             if (hasCollision()) {
-                location.setX(location.getX() + speed);
+                location.x += speed;
             }
         }
 
         if (rightpressed) {
-            if (location.getX() + speed < Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) {
-                location.setX(location.getX() + speed);
+            if (location.x + speed < Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) {
+                location.x += speed;
             }
 
             if (hasCollision()) {
-                location.setX(location.getX() - speed);
+                location.x -= speed;
             }
         }
 
@@ -102,6 +105,16 @@ public class Player extends Entity {
             image = sprite.getReloadImage();
         } else {
             image = sprite.getMachineImage();
+        }
+
+        if (health < maxHealth && System.currentTimeMillis() - regenTimer > regenTime) {
+            health += regen;
+
+            if (health > maxHealth) {
+                health = maxHealth;
+            }
+
+            regenTimer = System.currentTimeMillis();
         }
     }
 
@@ -182,6 +195,11 @@ public class Player extends Entity {
         if (health <= 0) {
             System.exit(1);
         }
+    }
+
+    @Override
+    public Point getCenter() {
+        return new Point(location.getX() + sprite.getCenter().x, location.getY() + sprite.getCenter().y);
     }
 }
 

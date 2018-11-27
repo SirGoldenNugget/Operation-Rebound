@@ -47,9 +47,7 @@ public class Bullet {
     public void update() {
         center.setLocation(center.getX() + speed * Math.cos(angle), center.getY() + speed * Math.sin(angle));
 
-		Point difference = new Point(center.x - initial.x, center.y - initial.y);
-
-		if (Math.sqrt(difference.x * difference.x + difference.y * difference.y) >= range || hasCollision()) {
+		if (center.distance(initial) >= range || hasCollision()) {
 			alive = false;
 		}
     }

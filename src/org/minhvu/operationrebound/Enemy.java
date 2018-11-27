@@ -9,7 +9,7 @@ public class Enemy extends Entity {
     private Point center;
     private double damage;
     private long damageTimer;
-    private int damageTime = 500;
+    private int damageTime;
     private boolean alive;
 
     public Enemy() {
@@ -30,19 +30,19 @@ public class Enemy extends Entity {
         Player player = Game.getInstance().getPlayer();
         double angle = Math.atan2(player.getCenter().y - getCenter().y, player.getCenter().x - getCenter().x);
 
-        if (location.getX() + speed * Math.cos(angle) < Game.getInstance().getWidth() - image.getWidth(Game.getInstance()) && location.getX() + speed * Math.cos(angle) > 0) {
-            location.setX(location.getX() + speed * Math.cos(angle));
+        if (location.x + speed * Math.cos(angle) < Game.getInstance().getWidth() - image.getWidth(Game.getInstance()) && location.x + speed * Math.cos(angle) > 0) {
+            location.x += speed * Math.cos(angle);
 
             if (hasCollision()) {
-                location.setX(location.getX() - speed * Math.cos(angle));
+                location.x -= speed * Math.cos(angle);
             }
         }
 
-        if (location.getY() + speed * Math.sin(angle) < Game.getInstance().getHeight() - image.getHeight(Game.getInstance()) && location.getY() + speed * Math.sin(angle) > 0) {
-            location.setY(location.getY() + speed * Math.sin(angle));
+        if (location.y + speed * Math.sin(angle) < Game.getInstance().getHeight() - image.getHeight(Game.getInstance()) && location.y + speed * Math.sin(angle) > 0) {
+            location.y += speed * Math.sin(angle);
 
             if (hasCollision()) {
-                location.setY(location.getY() - speed * Math.sin(angle));
+                location.y -= speed * Math.sin(angle);
             }
         }
 
@@ -64,7 +64,7 @@ public class Enemy extends Entity {
         double angle = Math.atan2(player.getCenter().y - getCenter().y, player.getCenter().x - getCenter().x);
 
         g2d.rotate(angle, getCenter().x, getCenter().y);
-        g2d.drawImage(image, (int) location.getX(), (int) location.getY(), Game.getInstance());
+        g2d.drawImage(image, location.getX(), location.getY(), Game.getInstance());
         g2d.setTransform(transform);
     }
 
@@ -79,7 +79,7 @@ public class Enemy extends Entity {
 
     @Override
     public Point getCenter() {
-        return new Point((int) (location.getX() + center.x), (int) (location.getY() + center.y));
+        return new Point(location.getX() + center.x, location.getY() + center.y);
     }
 
     public boolean isAlive() {

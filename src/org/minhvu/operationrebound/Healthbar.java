@@ -9,7 +9,7 @@ public class Healthbar {
 
     public static void paint(Graphics2D g2d, Entity entity) {
         g2d.setColor(Color.GRAY);
-        g2d.fillRect((int) (entity.getCenter().getX() - WIDTH / 2) - BORDER / 2, (int) (entity.getLocation().getY() + entity.getBounds().getHeight()) - BORDER / 2, WIDTH + BORDER, HEIGHT + BORDER);
+        g2d.fillRect(entity.getCenter().x - WIDTH / 2 - BORDER / 2, entity.getLocation().y + (int) entity.getBounds().getHeight() - BORDER / 2, WIDTH + BORDER, HEIGHT + BORDER);
 
         if (entity.getHealth() > (int) (entity.getMaxHealth() / 4 * 3)) {
             g2d.setColor(Color.GREEN);
@@ -21,6 +21,6 @@ public class Healthbar {
             g2d.setColor(Color.RED);
         }
 
-        g2d.fillRect((int) (entity.getCenter().getX() - WIDTH / 2), (int) (entity.getLocation().getY() + entity.getBounds().getHeight()), (int) (entity.getHealth() / entity.getMaxHealth() * WIDTH), HEIGHT);
+        g2d.fillRect(entity.getCenter().x - WIDTH / 2, entity.getLocation().y + (int) entity.getBounds().getHeight(), (int) (entity.getHealth() / entity.getMaxHealth() * WIDTH), HEIGHT);
     }
 }
