@@ -14,7 +14,19 @@ public class Enemy extends Entity {
 
     public Enemy() {
         image = Game.getInstance().getChararcters().getSprite(424, 0, 35, 43);
-        location = new Position(0.0, 0.0);
+
+        double randomSide = Math.random();
+
+        if (randomSide >= 0.75) {
+            location = new Position((int) (Math.random() * Game.getInstance().getWidth()), -image.getHeight(Game.getInstance()));
+        } else if (randomSide >= 0.5) {
+            location = new Position((int) (Math.random() * Game.getInstance().getWidth()), Game.getInstance().getHeight());
+        } else if (randomSide >= 0.25) {
+            location = new Position(-image.getWidth(Game.getInstance()), (int) (Math.random() * Game.getInstance().getHeight()));
+        } else {
+            location = new Position(Game.getInstance().getWidth(), (int) (Math.random() * Game.getInstance().getHeight()));
+        }
+
         speed = 2;
         maxHealth = 100;
         health = maxHealth;
@@ -30,7 +42,7 @@ public class Enemy extends Entity {
         Player player = Game.getInstance().getPlayer();
         double angle = Math.atan2(player.getCenter().y - getCenter().y, player.getCenter().x - getCenter().x);
 
-        if (location.x + speed * Math.cos(angle) < Game.getInstance().getWidth() - image.getWidth(Game.getInstance()) && location.x + speed * Math.cos(angle) > 0) {
+        if (location.x + speed * Math.cos(angle) < Game.getInstance().getWidth() && location.x + speed * Math.cos(angle) > -image.getWidth(Game.getInstance())) {
             location.x += speed * Math.cos(angle);
 
             if (hasCollision()) {
@@ -38,7 +50,7 @@ public class Enemy extends Entity {
             }
         }
 
-        if (location.y + speed * Math.sin(angle) < Game.getInstance().getHeight() - image.getHeight(Game.getInstance()) && location.y + speed * Math.sin(angle) > 0) {
+        if (location.y + speed * Math.sin(angle) < Game.getInstance().getHeight() && location.y + speed * Math.sin(angle) > -image.getHeight(Game.getInstance())) {
             location.y += speed * Math.sin(angle);
 
             if (hasCollision()) {

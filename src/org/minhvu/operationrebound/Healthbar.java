@@ -17,7 +17,7 @@ public class Healthbar {
             g2d.setColor(Color.YELLOW);
         } else if (entity.getHealth() > (int) (entity.getMaxHealth() / 4)) {
             g2d.setColor(Color.ORANGE);
-        } else if (entity.getHealth() > 0) {
+        } else {
             g2d.setColor(Color.RED);
         }
 

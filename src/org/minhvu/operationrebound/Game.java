@@ -33,7 +33,8 @@ public class Game extends JPanel implements Runnable {
     // Keeping Score.
 
     // Used For Keeping Count Of Objects.
-    private long timer = System.currentTimeMillis();
+    private long respawnTimer;
+    private int respawnTime;
 
     // Constructor.
     public Game() {
@@ -109,7 +110,9 @@ public class Game extends JPanel implements Runnable {
         player = new Player();
         bullets = new CopyOnWriteArrayList<>();
         enemies = new CopyOnWriteArrayList<>();
-        enemies.add(new Enemy());
+
+        respawnTimer = System.currentTimeMillis();
+        respawnTime = 1000;
 
         // Begins The Thread.
         start();
@@ -165,6 +168,11 @@ public class Game extends JPanel implements Runnable {
 
         for (Bullet bullet : bullets) {
             bullet.update();
+        }
+
+        if (System.currentTimeMillis() - respawnTimer > respawnTime) {
+            enemies.add(new Enemy());
+            respawnTimer = System.currentTimeMillis();
         }
 
         for (Enemy enemy : enemies) {

@@ -190,7 +190,7 @@ public class Player extends Entity {
 
     @Override
     public void damage(double damage) {
-        health -= damage;
+//        health -= damage;
 
         if (health <= 0) {
             System.exit(1);
