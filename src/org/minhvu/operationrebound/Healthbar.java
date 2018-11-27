@@ -11,11 +11,11 @@ public class Healthbar {
         g2d.setColor(Color.GRAY);
         g2d.fillRect(entity.getCenter().x - WIDTH / 2 - BORDER / 2, entity.getLocation().y + (int) entity.getBounds().getHeight() - BORDER / 2, WIDTH + BORDER, HEIGHT + BORDER);
 
-        if (entity.getHealth() > (int) (entity.getMaxHealth() / 4 * 3)) {
+        if (entity.getHealth() > (int) (entity.getMaxHealth() * 0.75)) {
             g2d.setColor(Color.GREEN);
-        } else if (entity.getHealth() > (int) (entity.getMaxHealth() / 4 * 2)) {
+        } else if (entity.getHealth() > (int) (entity.getMaxHealth() * 0.5)) {
             g2d.setColor(Color.YELLOW);
-        } else if (entity.getHealth() > (int) (entity.getMaxHealth() / 4)) {
+        } else if (entity.getHealth() > (int) (entity.getMaxHealth() * 0.25)) {
             g2d.setColor(Color.ORANGE);
         } else {
             g2d.setColor(Color.RED);

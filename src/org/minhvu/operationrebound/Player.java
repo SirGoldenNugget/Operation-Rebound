@@ -25,7 +25,7 @@ public class Player extends Entity {
     private int score;
 
     public Player() {
-        sprite = new Sprites().getSprite("Hitman");
+        sprite = new Sprites().getRandomSprite();
 
         image = sprite.getPistolImage();
 

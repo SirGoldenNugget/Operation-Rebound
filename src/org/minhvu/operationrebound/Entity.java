@@ -18,7 +18,7 @@ public abstract class Entity {
     }
 
     public Point getLocation() {
-        return new Point((int) location.getX(), (int) location.getY());
+        return new Point(location.getX(), location.getY());
     }
 
     protected Dimension getDimensions() {
@@ -26,7 +26,7 @@ public abstract class Entity {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle((int) location.getX(), (int) location.getY(), getDimensions().width, getDimensions().height);
+        return new Rectangle(location.getX(), location.getY(), getDimensions().width, getDimensions().height);
     }
 
     protected boolean hasCollision() {
