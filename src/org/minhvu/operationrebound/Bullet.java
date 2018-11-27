@@ -47,15 +47,11 @@ public class Bullet {
     public void update() {
         center.setLocation(center.getX() + speed * Math.cos(angle), center.getY() + speed * Math.sin(angle));
 
-//		Point difference = new Point(center.x - initial.x, center.y - initial.y);
-//
-//		if (Math.sqrt(difference.x * difference.x + difference.y * difference.y) >= range) {
-//			alive = false;
-//		}
+		Point difference = new Point(center.x - initial.x, center.y - initial.y);
 
-        if (hasCollision()) {
-            alive = false;
-        }
+		if (Math.sqrt(difference.x * difference.x + difference.y * difference.y) >= range || hasCollision()) {
+			alive = false;
+		}
     }
 
     public boolean hasCollision() {
@@ -72,6 +68,7 @@ public class Bullet {
             Enemy enemy = (Enemy) object;
             if (getBounds().intersects(enemy.getBounds())) {
                 enemy.damage(damage);
+                Enemy.recent = enemy;
                 return true;
             }
         }

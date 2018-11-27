@@ -4,18 +4,25 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 public class Enemy extends Entity {
+    public static Enemy recent;
+
     private Point center;
-    private double damage = 10;
-    private long damageTimer = System.currentTimeMillis();
+    private double damage;
+    private long damageTimer;
     private int damageTime = 500;
     private boolean alive;
 
     public Enemy() {
         image = Game.getInstance().getChararcters().getSprite(424, 0, 35, 43);
         location = new Position(0.0, 0.0);
-        center = new Point(15, 22);
         speed = 2;
-        health = 10;
+        maxHealth = 100;
+        health = maxHealth;
+
+        center = new Point(15, 22);
+        damage = 10;
+        damageTimer = System.currentTimeMillis();
+        damageTime = 500;
         alive = true;
     }
 
@@ -47,8 +54,11 @@ public class Enemy extends Entity {
         }
     }
 
-
     public void paint(Graphics2D g2d, Player player) {
+        if (recent != null) {
+            Healthbar.paint(g2d, recent);
+        }
+
         AffineTransform transform = g2d.getTransform();
 
         double angle = Math.atan2(player.getCenter().y - getCenter().y, player.getCenter().x - getCenter().x);
@@ -58,10 +68,6 @@ public class Enemy extends Entity {
         g2d.setTransform(transform);
     }
 
-    private Point getCenter() {
-        return new Point((int) (location.getX() + center.x), (int) (location.getY() + center.y));
-    }
-
     @Override
     public void damage(double damage) {
         health -= damage;
@@ -69,6 +75,11 @@ public class Enemy extends Entity {
         if (health <= 0) {
             alive = false;
         }
+    }
+
+    @Override
+    public Point getCenter() {
+        return new Point((int) (location.getX() + center.x), (int) (location.getY() + center.y));
     }
 
     public boolean isAlive() {

@@ -20,17 +20,19 @@ public class Player extends Entity {
 
     public Player() {
         sprite = new Sprites().getSprite("Hitman");
+
         image = sprite.getPistolImage();
 
         location = new Position((Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) / 2, Game.getInstance().getHeight() - 200);
-        speed = 4;
+        speed = 3;
 
         uppressed = false;
         downpressed = false;
         leftpressed = false;
         rightpressed = false;
 
-        health = 100;
+        maxHealth = 100;
+        health = maxHealth;
         maxAmmo = 10;
         ammo = maxAmmo;
         reloadTime = 1336;
@@ -40,6 +42,8 @@ public class Player extends Entity {
     public void paint(Graphics2D g2d) {
         AffineTransform transform = g2d.getTransform();
 
+        Healthbar.paint(g2d, this);
+
         Point mousePostion = MouseInfo.getPointerInfo().getLocation();
         double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
 
@@ -48,6 +52,7 @@ public class Player extends Entity {
         g2d.setTransform(transform);
     }
 
+    @Override
     public Point getCenter() {
         return new Point((int) (location.getX() + sprite.getCenter().x), (int) (location.getY() + sprite.getCenter().y));
     }
