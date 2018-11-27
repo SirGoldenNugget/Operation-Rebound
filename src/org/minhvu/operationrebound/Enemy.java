@@ -66,14 +66,14 @@ public class Enemy extends Entity {
         }
     }
 
-    public void paint(Graphics2D g2d, Player player) {
+    public void paint(Graphics2D g2d) {
         if (recent != null) {
             Healthbar.paint(g2d, recent);
         }
 
         AffineTransform transform = g2d.getTransform();
 
-        double angle = Math.atan2(player.getCenter().y - getCenter().y, player.getCenter().x - getCenter().x);
+        double angle = Math.atan2(Game.getInstance().getPlayer().getCenter().y - getCenter().y, Game.getInstance().getPlayer().getCenter().x - getCenter().x);
 
         g2d.rotate(angle, getCenter().x, getCenter().y);
         g2d.drawImage(image, location.getX(), location.getY(), Game.getInstance());
@@ -85,6 +85,7 @@ public class Enemy extends Entity {
         health -= damage;
 
         if (health <= 0) {
+            Game.getInstance().getPlayer().incrementScore();
             alive = false;
         }
     }

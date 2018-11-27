@@ -112,7 +112,7 @@ public class Game extends JPanel implements Runnable {
         enemies = new CopyOnWriteArrayList<>();
 
         respawnTimer = System.currentTimeMillis();
-        respawnTime = 1000;
+        respawnTime = 5000;
 
         // Begins The Thread.
         start();
@@ -219,7 +219,7 @@ public class Game extends JPanel implements Runnable {
         }
 
         for (Enemy enemy : enemies) {
-            enemy.paint(g2d, player);
+            enemy.paint(g2d);
         }
 
         player.paint(g2d);

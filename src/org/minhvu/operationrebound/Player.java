@@ -22,6 +22,8 @@ public class Player extends Entity {
     private int regenTime;
     private int regen;
 
+    private int score;
+
     public Player() {
         sprite = new Sprites().getSprite("Hitman");
 
@@ -188,11 +190,16 @@ public class Player extends Entity {
         }
     }
 
+    public void incrementScore() {
+        ++score;
+    }
+
     @Override
     public void damage(double damage) {
-//        health -= damage;
+        health -= damage;
 
         if (health <= 0) {
+            System.out.println("Score: " + score);
             System.exit(1);
         }
     }
