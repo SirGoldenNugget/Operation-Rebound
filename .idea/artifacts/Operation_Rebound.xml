@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Operation-Rebound">
+    <output-path>$PROJECT_DIR$/out/artifacts/Operation_Rebound</output-path>
+    <root id="archive" name="Operation-Rebound.jar">
+      <element id="module-output" name="Operation-Rebound" />
+    </root>
+  </artifact>
+</component>

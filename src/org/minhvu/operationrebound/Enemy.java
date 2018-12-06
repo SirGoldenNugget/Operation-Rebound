@@ -48,6 +48,19 @@ public class Enemy extends Entity {
             if (hasCollision()) {
                 location.x -= speed * Math.cos(angle);
             }
+
+            for (Object object : Game.getInstance().getEnemies()) {
+                Enemy enemy = (Enemy) object;
+
+                if (enemy.equals(this)) {
+                    break;
+                }
+
+                if (getBounds().intersects(enemy.getBounds())) {
+                    location.x -= speed * Math.cos(angle);
+                    break;
+                }
+            }
         }
 
         if (location.y + speed * Math.sin(angle) < Game.getInstance().getHeight() && location.y + speed * Math.sin(angle) > -image.getHeight(Game.getInstance())) {
@@ -55,6 +68,19 @@ public class Enemy extends Entity {
 
             if (hasCollision()) {
                 location.y -= speed * Math.sin(angle);
+            }
+
+            for (Object object : Game.getInstance().getEnemies()) {
+                Enemy enemy = (Enemy) object;
+
+                if (enemy.equals(this)) {
+                    break;
+                }
+
+                if (getBounds().intersects(enemy.getBounds())) {
+                    location.y -= speed * Math.sin(angle);
+                    break;
+                }
             }
         }
 
