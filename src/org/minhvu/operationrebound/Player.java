@@ -213,6 +213,10 @@ public class Player extends Entity {
         ++score;
     }
 
+    public int getScore() {
+        return score;
+    }
+
     public int getAmmo() {
         return ammo;
     }

@@ -6,6 +6,9 @@ import java.awt.geom.Rectangle2D;
 import java.util.HashSet;
 
 public class Bullet {
+    public static int bulletsFired;
+    public static int bulletsHit;
+
     private Point initial;
     private Point center;
     private int speed;
@@ -34,6 +37,8 @@ public class Bullet {
         collisionValues.add(0);
         collisionValues.add(2);
         collisionValues.add(3);
+
+        bulletsFired++;
     }
 
     public void paint(Graphics2D g2d) {
@@ -67,6 +72,7 @@ public class Bullet {
             if (getBounds().intersects(enemy.getBounds())) {
                 enemy.damage(damage);
                 Enemy.recent = enemy;
+                bulletsHit++;
                 return true;
             }
         }

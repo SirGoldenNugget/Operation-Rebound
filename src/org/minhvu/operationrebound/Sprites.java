@@ -25,7 +25,7 @@ public class Sprites {
         sprites.put("Old", new Sprite(
                 Game.getInstance().getChararcters().getSprite(216, 0, 49, 43),
                 Game.getInstance().getChararcters().getSprite(213, 132, 49, 43),
-                Game.getInstance().getChararcters().getSprite(307, 144, 39, 43),
+                Game.getInstance().getChararcters().getSprite(307, 44, 39, 43),
                 new Point(15, 22)));
         sprites.put("Robot", new Sprite(
                 Game.getInstance().getChararcters().getSprite(164, 44, 49, 43),
