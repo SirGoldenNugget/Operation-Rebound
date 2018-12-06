@@ -69,7 +69,10 @@ public class Bullet {
             if (getBounds().intersects(enemy.getBounds())) {
                 enemy.damage(damage);
                 Enemy.recent = enemy;
+
+                Scoreboard.damageInflicted += damage;
                 Scoreboard.bulletsHit++;
+
                 return true;
             }
         }

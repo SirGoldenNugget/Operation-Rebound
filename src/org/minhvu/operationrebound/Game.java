@@ -175,6 +175,7 @@ public class Game extends JPanel implements Runnable {
         if (System.currentTimeMillis() - respawnTimer > respawnTime) {
             enemies.add(new Enemy());
             respawnTimer = System.currentTimeMillis();
+            Scoreboard.totalEnemies++;
         }
 
         for (Enemy enemy : enemies) {
@@ -186,6 +187,7 @@ public class Game extends JPanel implements Runnable {
         if (System.currentTimeMillis() - powerupTimer > powerupTime) {
             powerups.add(new PowerUp());
             powerupTimer = System.currentTimeMillis();
+            Scoreboard.totalPowerUps++;
         }
 
         for (PowerUp powerup : powerups) {

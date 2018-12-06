@@ -61,8 +61,12 @@ public class PowerUp {
                         }
                     }, SPEED_DURATION
             );
+
+            Scoreboard.yellowPowerUps++;
         } else if (color.equals(Color.GREEN)) {
             player.setHealth(player.getHealth() + HEALTH);
+
+            Scoreboard.greenPowerUps++;
         } else if (color.equals(Color.RED)) {
             player.setDamage(player.getDamage() + DAMAGE);
 
@@ -74,6 +78,8 @@ public class PowerUp {
                         }
                     }, DAMAGE_DURATION
             );
+
+            Scoreboard.redPowerUps++;
         } else if (color.equals(Color.BLUE)) {
             player.setMaxAmmo(player.getMaxAmmo() + MAX_AMMO);
             player.setAmmo(player.getMaxAmmo());
@@ -87,6 +93,8 @@ public class PowerUp {
                         }
                     }, MAX_AMMO_DURATION
             );
+
+            Scoreboard.bluePowerUps++;
         }
 
         alive = false;

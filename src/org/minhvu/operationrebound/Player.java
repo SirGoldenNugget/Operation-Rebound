@@ -201,14 +201,11 @@ public class Player extends Entity {
                         public void run() {
                             ammo = maxAmmo;
                             reloading = false;
+                            Scoreboard.reloads++;
                         }
                     }, reloadTime
             );
         }
-    }
-
-    public int getAmmo() {
-        return ammo;
     }
 
     public void setAmmo(int ammo) {
@@ -234,8 +231,10 @@ public class Player extends Entity {
     @Override
     public void damage(double damage) {
         health -= damage;
+        Scoreboard.damageRecieved += damage;
 
         if (health <= 0) {
+            Scoreboard.output();
             System.exit(1);
         }
     }
