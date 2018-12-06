@@ -25,8 +25,6 @@ public class Player extends Entity {
     private int regenTime;
     private int regen;
 
-    private int score;
-
     public Player() {
         sprite = new Sprites().getRandomSprite();
 
@@ -209,14 +207,6 @@ public class Player extends Entity {
         }
     }
 
-    public void incrementScore() {
-        ++score;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
     public int getAmmo() {
         return ammo;
     }
@@ -246,7 +236,6 @@ public class Player extends Entity {
         health -= damage;
 
         if (health <= 0) {
-            System.out.println("Score: " + score);
             System.exit(1);
         }
     }

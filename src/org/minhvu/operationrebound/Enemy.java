@@ -111,7 +111,7 @@ public class Enemy extends Entity {
         health -= damage;
 
         if (health <= 0) {
-            Game.getInstance().getPlayer().incrementScore();
+            Scoreboard.score++;
             alive = false;
         }
     }

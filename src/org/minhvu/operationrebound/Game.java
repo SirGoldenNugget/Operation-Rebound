@@ -241,6 +241,8 @@ public class Game extends JPanel implements Runnable {
         }
 
         player.paint(g2d);
+
+        Scoreboard.paint(g2d);
     }
 
     public SpriteSheet getChararcters() {
