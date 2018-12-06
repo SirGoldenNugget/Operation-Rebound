@@ -34,7 +34,7 @@ public class Maps {
                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
                 };
 
-        suburbia = new Map(new Spritesheet("/suburbia.png"), suburbiaCollisionMap);
+        suburbia = new Map(new SpriteSheet("/suburbia.png"), suburbiaCollisionMap);
 
         maps.put("Suburbia", suburbia);
     }
@@ -56,20 +56,3 @@ public class Maps {
     }
 }
 
-class Map {
-    private Spritesheet spritesheet;
-    private int[][] collisionMap;
-
-    public Map(Spritesheet spritesheet, int[][] collisionMap) {
-        this.spritesheet = spritesheet;
-        this.collisionMap = collisionMap;
-    }
-
-    public Spritesheet getSpritesheet() {
-        return spritesheet;
-    }
-
-    public int[][] getCollisionMap() {
-        return collisionMap;
-    }
-}

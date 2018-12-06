@@ -13,6 +13,9 @@ public class Player extends Entity {
     private boolean leftpressed;
     private boolean rightpressed;
 
+//    private boolean mousePressed;
+
+    private double damage;
     private int ammo;
     private int maxAmmo;
     private int reloadTime;
@@ -37,11 +40,14 @@ public class Player extends Entity {
         leftpressed = false;
         rightpressed = false;
 
+//        mousePressed = false;
+
         maxHealth = 100;
         health = maxHealth;
-        maxAmmo = 10;
+        damage = 10;
+        maxAmmo = 16;
         ammo = maxAmmo;
-        reloadTime = 1336;
+        reloadTime = 886;
         reloading = false;
 
         regenTimer = System.currentTimeMillis();
@@ -52,7 +58,7 @@ public class Player extends Entity {
     public void paint(Graphics2D g2d) {
         AffineTransform transform = g2d.getTransform();
 
-        Healthbar.paint(g2d, this);
+        HealthBar.paint(g2d, this);
 
         Point mousePostion = MouseInfo.getPointerInfo().getLocation();
         double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
@@ -109,28 +115,41 @@ public class Player extends Entity {
             image = sprite.getMachineImage();
         }
 
+        // Update Power Ups
+        for (Object object : Game.getInstance().getPowerUps()) {
+            PowerUp powerup = (PowerUp) object;
+
+            if (powerup.isAlive() && powerup.getBounds().contains(getCenter())) {
+                powerup.consume(this);
+            }
+        }
+
+        // Update Health
         if (health < maxHealth && System.currentTimeMillis() - regenTimer > regenTime) {
             health += regen;
-
-            if (health > maxHealth) {
-                health = maxHealth;
-            }
-
             regenTimer = System.currentTimeMillis();
+        }
+
+        if (health > maxHealth) {
+            health = maxHealth;
         }
     }
 
-    public void mouseReleased(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            if (ammo > 0) {
-                Point mousePostion = MouseInfo.getPointerInfo().getLocation();
-                double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
-                Game.getInstance().getBullets().add(new Bullet(new Point((int) (getCenter().x + 24 * Math.cos(angle) + 5 * -Math.sin(angle)),
-                        (int) (getCenter().y + 24 * Math.sin(angle) + 5 * Math.cos(angle))), 10, 500, angle));
+//    public void mousePressed(MouseEvent e) {
+//        if (e.getButton() == MouseEvent.BUTTON1) {
+//            mousePressed = true;
+//        }
+//    }
 
-                if (--ammo == 0) {
-                    reload();
-                }
+    public void mouseReleased(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1 && ammo > 0 && !reloading) {
+            Point mousePostion = MouseInfo.getPointerInfo().getLocation();
+            double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
+            Game.getInstance().getBullets().add(new Bullet(new Point((int) (getCenter().x + 24 * Math.cos(angle) + 5 * -Math.sin(angle)),
+                    (int) (getCenter().y + 24 * Math.sin(angle) + 5 * Math.cos(angle))), damage, 10, 500, angle));
+
+            if (--ammo == 0) {
+                reload();
             }
         }
     }
@@ -192,6 +211,30 @@ public class Player extends Entity {
 
     public void incrementScore() {
         ++score;
+    }
+
+    public int getAmmo() {
+        return ammo;
+    }
+
+    public void setAmmo(int ammo) {
+        this.ammo = ammo;
+    }
+
+    public int getMaxAmmo() {
+        return maxAmmo;
+    }
+
+    public void setMaxAmmo(int maxAmmo) {
+        this.maxAmmo = maxAmmo;
+    }
+
+    public double getDamage() {
+        return damage;
+    }
+
+    public void setDamage(double damage) {
+        this.damage = damage;
     }
 
     @Override

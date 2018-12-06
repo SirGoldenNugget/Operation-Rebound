@@ -8,7 +8,7 @@ public abstract class Entity {
     protected BufferedImage image;
     protected Position location;
     protected Point center;
-    protected int speed;
+    protected double speed;
     protected double health;
     protected double maxHealth;
 
@@ -45,8 +45,20 @@ public abstract class Entity {
         return health;
     }
 
+    public void setHealth(double health) {
+        this.health = health;
+    }
+
     public double getMaxHealth() {
         return maxHealth;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 
     public abstract void damage(double damage);

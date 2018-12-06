@@ -4,10 +4,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Spritesheet {
+public class SpriteSheet {
     private BufferedImage spritesheet;
 
-    public Spritesheet(String file) {
+    public SpriteSheet(String file) {
         BufferedImage sprite = null;
 
         try {

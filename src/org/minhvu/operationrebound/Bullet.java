@@ -18,14 +18,14 @@ public class Bullet {
 
     private HashSet collisionValues;
 
-    public Bullet(Point center, int speed, int range, double angle) {
+    public Bullet(Point center, double damage, int speed, int range, double angle) {
         this.center = center;
         initial = (Point) center.clone();
+        this.damage = damage;
         this.speed = speed;
         this.range = range;
         this.angle = angle;
         radius = 5;
-        damage = 10;
 
         alive = true;
 

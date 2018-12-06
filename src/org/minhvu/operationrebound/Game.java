@@ -15,26 +15,22 @@ public class Game extends JPanel implements Runnable {
     private boolean running = false;
     private Thread thread;
 
-    private Spritesheet characters;
-    private Spritesheet tiles;
+    private SpriteSheet characters;
+    private SpriteSheet tiles;
     private Maps maps;
 
     // Objects Used In The Game.
     private Player player;
     private CopyOnWriteArrayList<Bullet> bullets;
     private CopyOnWriteArrayList<Enemy> enemies;
-
-    // State Of The Game.
-
-    // Menu For The Game.
-
-    // For The End Game.
-
-    // Keeping Score.
+    private CopyOnWriteArrayList<PowerUp> powerups;
 
     // Used For Keeping Count Of Objects.
     private long respawnTimer;
     private int respawnTime;
+
+    private long powerupTimer;
+    private int powerupTime;
 
     // Constructor.
     public Game() {
@@ -67,7 +63,7 @@ public class Game extends JPanel implements Runnable {
 
             @Override
             public void mousePressed(MouseEvent e) {
-
+//                player.mousePressed(e);
             }
 
             @Override
@@ -91,8 +87,8 @@ public class Game extends JPanel implements Runnable {
         setFocusable(true);
 
         // Load In The Sprite Sheets.
-        characters = new Spritesheet("/spritesheet_characters.png");
-        tiles = new Spritesheet("/spritesheet_tiles.png");
+        characters = new SpriteSheet("/spritesheet_characters.png");
+        tiles = new SpriteSheet("/spritesheet_tiles.png");
         maps = new Maps();
         maps.setCurrentMap("Suburbia");
 
@@ -110,9 +106,13 @@ public class Game extends JPanel implements Runnable {
         player = new Player();
         bullets = new CopyOnWriteArrayList<>();
         enemies = new CopyOnWriteArrayList<>();
+        powerups = new CopyOnWriteArrayList<>();
 
         respawnTimer = System.currentTimeMillis();
-        respawnTime = 5000;
+        respawnTime = 2000;
+
+        powerupTimer = System.currentTimeMillis();
+        powerupTime = 5000;
 
         // Begins The Thread.
         start();
@@ -170,6 +170,8 @@ public class Game extends JPanel implements Runnable {
             bullet.update();
         }
 
+        bullets.removeIf(bullet -> !bullet.isAlive());
+
         if (System.currentTimeMillis() - respawnTimer > respawnTime) {
             enemies.add(new Enemy());
             respawnTimer = System.currentTimeMillis();
@@ -179,9 +181,21 @@ public class Game extends JPanel implements Runnable {
             enemy.update();
         }
 
-        bullets.removeIf(bullet -> !bullet.isAlive());
         enemies.removeIf(enemy -> !enemy.isAlive());
+
+        if (System.currentTimeMillis() - powerupTimer > powerupTime) {
+            powerups.add(new PowerUp());
+            powerupTimer = System.currentTimeMillis();
+        }
+
+        for (PowerUp powerup : powerups) {
+            powerup.update();
+        }
+
+        powerups.removeIf(powerup -> !powerup.isAlive());
+
         player.update();
+
         repaint();
     }
 
@@ -214,6 +228,10 @@ public class Game extends JPanel implements Runnable {
 
         g2d.drawImage(maps.getMap("Suburbia").getSpritesheet().getSpritesheet(), 0, 0, Game.getInstance());
 
+        for (PowerUp powerup : powerups) {
+            powerup.paint(g2d);
+        }
+
         for (Bullet bullet : bullets) {
             bullet.paint(g2d);
         }
@@ -225,7 +243,7 @@ public class Game extends JPanel implements Runnable {
         player.paint(g2d);
     }
 
-    public Spritesheet getChararcters() {
+    public SpriteSheet getChararcters() {
         return characters;
     }
 
@@ -233,7 +251,7 @@ public class Game extends JPanel implements Runnable {
         return maps;
     }
 
-    public Spritesheet getTiles() {
+    public SpriteSheet getTiles() {
         return tiles;
     }
 
@@ -247,5 +265,9 @@ public class Game extends JPanel implements Runnable {
 
     public CopyOnWriteArrayList getEnemies() {
         return enemies;
+    }
+
+    public CopyOnWriteArrayList getPowerUps() {
+        return powerups;
     }
 }

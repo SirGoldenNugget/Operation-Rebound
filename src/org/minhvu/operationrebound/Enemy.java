@@ -68,7 +68,7 @@ public class Enemy extends Entity {
 
     public void paint(Graphics2D g2d) {
         if (recent != null && recent.isAlive()) {
-            Healthbar.paint(g2d, recent);
+            HealthBar.paint(g2d, recent);
         }
 
         AffineTransform transform = g2d.getTransform();

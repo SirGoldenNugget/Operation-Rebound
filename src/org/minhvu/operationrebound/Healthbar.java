@@ -2,7 +2,7 @@ package org.minhvu.operationrebound;
 
 import java.awt.*;
 
-public class Healthbar {
+public abstract class HealthBar {
     private static final int WIDTH = 32;
     private static final int HEIGHT = 5;
     private static final int BORDER = 0;
