@@ -243,5 +243,15 @@ public class Player extends Entity {
     public Point getCenter() {
         return new Point(location.getX() + sprite.getCenter().x, location.getY() + sprite.getCenter().y);
     }
+
+    @Override
+    protected Dimension getDimensions() {
+        return new Dimension(sprite.getMachineImage().getWidth(Game.getInstance()), sprite.getMachineImage().getHeight(Game.getInstance()));
+    }
+
+    @Override
+    public Rectangle getBounds() {
+        return new Rectangle(location.getX(), location.getY(), getDimensions().width - 16, getDimensions().height);
+    }
 }
 
