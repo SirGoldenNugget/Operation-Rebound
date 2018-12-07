@@ -1,5 +1,13 @@
 package org.minhvu.operationrebound;
 
+import org.minhvu.operationrebound.entity.Bullet;
+import org.minhvu.operationrebound.entity.Enemy;
+import org.minhvu.operationrebound.entity.Player;
+import org.minhvu.operationrebound.entity.PowerUp;
+import org.minhvu.operationrebound.essentials.Scoreboard;
+import org.minhvu.operationrebound.map.Maps;
+import org.minhvu.operationrebound.sprite.SpriteSheet;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -173,7 +181,7 @@ public class Game extends JPanel implements Runnable {
         bullets.removeIf(bullet -> !bullet.isAlive());
 
         if (System.currentTimeMillis() - respawnTimer > respawnTime) {
-//            enemies.add(new Enemy());
+            enemies.add(new Enemy());
             respawnTimer = System.currentTimeMillis();
             Scoreboard.totalEnemies++;
         }
@@ -253,10 +261,6 @@ public class Game extends JPanel implements Runnable {
 
     public Maps getMaps() {
         return maps;
-    }
-
-    public SpriteSheet getTiles() {
-        return tiles;
     }
 
     public Player getPlayer() {
