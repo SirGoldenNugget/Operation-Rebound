@@ -98,7 +98,6 @@ public class Game extends JPanel implements Runnable {
         characters = new SpriteSheet("/spritesheet_characters.png");
         tiles = new SpriteSheet("/spritesheet_tiles.png");
         maps = new Maps();
-        maps.setCurrentMap("Stonecold");
 
         // Create The Frame.
         JFrame frame = new JFrame("Operation Rebound");
