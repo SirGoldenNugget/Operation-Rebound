@@ -90,7 +90,7 @@ public class Game extends JPanel implements Runnable {
         characters = new SpriteSheet("/spritesheet_characters.png");
         tiles = new SpriteSheet("/spritesheet_tiles.png");
         maps = new Maps();
-        maps.setCurrentMap("Suburbia");
+        maps.setCurrentMap("Stonecold");
 
         // Create The Frame.
         JFrame frame = new JFrame("Operation Rebound");
@@ -173,7 +173,7 @@ public class Game extends JPanel implements Runnable {
         bullets.removeIf(bullet -> !bullet.isAlive());
 
         if (System.currentTimeMillis() - respawnTimer > respawnTime) {
-            enemies.add(new Enemy());
+//            enemies.add(new Enemy());
             respawnTimer = System.currentTimeMillis();
             Scoreboard.totalEnemies++;
         }
@@ -228,7 +228,7 @@ public class Game extends JPanel implements Runnable {
 
         super.paint(g2d);
 
-        g2d.drawImage(maps.getMap("Suburbia").getSpritesheet().getSpritesheet(), 0, 0, Game.getInstance());
+        g2d.drawImage(maps.getCurrentMap().getSpritesheet().getSpritesheet(), 0, 0, Game.getInstance());
 
         for (PowerUp powerup : powerups) {
             powerup.paint(g2d);

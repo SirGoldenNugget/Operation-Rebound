@@ -1,0 +1,15 @@
+Time: 64s
+Score: 14
+Accuracy: 83%
+	Bullets Fired: 91
+	Bullets Hit: 76
+Reloads: 4
+Damage Inflicted: 1660
+Damage Recieved: 180
+Power Ups Picked Up: 4
+	Blue Power Ups: 2
+	Yellow Power Ups: 0
+	Green Power Ups: 1
+	Red Power Ups: 1
+Power Ups Spawned: 12
+Enemies Spawned: 32
