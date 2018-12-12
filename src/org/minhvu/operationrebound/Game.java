@@ -4,6 +4,7 @@ import org.minhvu.operationrebound.entity.Bullet;
 import org.minhvu.operationrebound.entity.Enemy;
 import org.minhvu.operationrebound.entity.Player;
 import org.minhvu.operationrebound.entity.PowerUp;
+import org.minhvu.operationrebound.essentials.Menu;
 import org.minhvu.operationrebound.essentials.Scoreboard;
 import org.minhvu.operationrebound.map.Maps;
 import org.minhvu.operationrebound.sprite.SpriteSheet;
@@ -20,11 +21,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Game extends JPanel implements Runnable {
     // Used For Accessing JPanel Method.
     private static Game instance;
+    private JFrame frame;
     private boolean running = false;
     private Thread thread;
 
+    private State state;
     private SpriteSheet characters;
-    private SpriteSheet tiles;
     private Maps maps;
 
     // Objects Used In The Game.
@@ -36,13 +38,14 @@ public class Game extends JPanel implements Runnable {
     // Used For Keeping Count Of Objects.
     private long respawnTimer;
     private int respawnTime;
-
     private long powerupTimer;
     private int powerupTime;
 
     // Constructor.
     public Game() {
         instance = this;
+
+        state = State.menu;
 
         // Anonymous Use Of Keyboard Input.
         KeyListener keylistener = new KeyListener() {
@@ -71,12 +74,16 @@ public class Game extends JPanel implements Runnable {
 
             @Override
             public void mousePressed(MouseEvent e) {
-//                player.mousePressed(e);
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                player.mouseReleased(e);
+                if (state.equals(State.menu)) {
+                    Menu.mouseReleased(e);
+                } else if (state.equals(State.play)) {
+                    player.mouseReleased(e);
+                }
             }
 
             @Override
@@ -96,11 +103,10 @@ public class Game extends JPanel implements Runnable {
 
         // Load In The Sprite Sheets.
         characters = new SpriteSheet("/spritesheet_characters.png");
-        tiles = new SpriteSheet("/spritesheet_tiles.png");
         maps = new Maps();
 
         // Create The Frame.
-        JFrame frame = new JFrame("Operation Rebound");
+        frame = new JFrame("Operation Rebound");
         frame.add(this);
         frame.setSize(1920, 1080);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -128,11 +134,6 @@ public class Game extends JPanel implements Runnable {
     // Entry Point.
     public static void main(String[] args) {
         new Game();
-    }
-
-    // Getters For The Class Objects.
-    public static Game getInstance() {
-        return instance;
     }
 
     // Starts The Thread.
@@ -171,39 +172,39 @@ public class Game extends JPanel implements Runnable {
 
     // Updates The Objects.
     private void update() {
-        this.setBackground(Color.WHITE);
+        if (state.equals(State.play)) {
+            for (Bullet bullet : bullets) {
+                bullet.update();
+            }
 
-        for (Bullet bullet : bullets) {
-            bullet.update();
+            bullets.removeIf(bullet -> !bullet.isAlive());
+
+            if (System.currentTimeMillis() - respawnTimer > respawnTime) {
+                enemies.add(new Enemy());
+                respawnTimer = System.currentTimeMillis();
+                Scoreboard.totalEnemies++;
+            }
+
+            for (Enemy enemy : enemies) {
+                enemy.update();
+            }
+
+            enemies.removeIf(enemy -> !enemy.isAlive());
+
+            if (System.currentTimeMillis() - powerupTimer > powerupTime) {
+                powerups.add(new PowerUp());
+                powerupTimer = System.currentTimeMillis();
+                Scoreboard.totalPowerUps++;
+            }
+
+            for (PowerUp powerup : powerups) {
+                powerup.update();
+            }
+
+            powerups.removeIf(powerup -> !powerup.isAlive());
+
+            player.update();
         }
-
-        bullets.removeIf(bullet -> !bullet.isAlive());
-
-        if (System.currentTimeMillis() - respawnTimer > respawnTime) {
-            enemies.add(new Enemy());
-            respawnTimer = System.currentTimeMillis();
-            Scoreboard.totalEnemies++;
-        }
-
-        for (Enemy enemy : enemies) {
-            enemy.update();
-        }
-
-        enemies.removeIf(enemy -> !enemy.isAlive());
-
-        if (System.currentTimeMillis() - powerupTimer > powerupTime) {
-            powerups.add(new PowerUp());
-            powerupTimer = System.currentTimeMillis();
-            Scoreboard.totalPowerUps++;
-        }
-
-        for (PowerUp powerup : powerups) {
-            powerup.update();
-        }
-
-        powerups.removeIf(powerup -> !powerup.isAlive());
-
-        player.update();
 
         repaint();
     }
@@ -237,21 +238,43 @@ public class Game extends JPanel implements Runnable {
 
         g2d.drawImage(maps.getCurrentMap().getSpritesheet().getSpritesheet(), 0, 0, Game.getInstance());
 
-        for (PowerUp powerup : powerups) {
-            powerup.paint(g2d);
-        }
+        if (state.equals(State.play)) {
+            for (PowerUp powerup : powerups) {
+                powerup.paint(g2d);
+            }
 
-        for (Bullet bullet : bullets) {
-            bullet.paint(g2d);
-        }
+            for (Bullet bullet : bullets) {
+                bullet.paint(g2d);
+            }
 
-        for (Enemy enemy : enemies) {
-            enemy.paint(g2d);
-        }
+            for (Enemy enemy : enemies) {
+                enemy.paint(g2d);
+            }
 
-        player.paint(g2d);
+            player.paint(g2d);
+        } else if (state.equals(State.menu)) {
+            Menu.paint(g2d);
+        } else if (state.equals(State.end)) {
+
+        }
 
         Scoreboard.paint(g2d);
+    }
+
+    public void reset() {
+        player = new Player();
+        bullets = new CopyOnWriteArrayList<>();
+        enemies = new CopyOnWriteArrayList<>();
+        powerups = new CopyOnWriteArrayList<>();
+        Scoreboard.reset();
+    }
+
+    public static Game getInstance() {
+        return instance;
+    }
+
+    public Frame getFrame() {
+        return frame;
     }
 
     public SpriteSheet getChararcters() {
@@ -276,5 +299,15 @@ public class Game extends JPanel implements Runnable {
 
     public CopyOnWriteArrayList getPowerUps() {
         return powerups;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public enum State {
+        menu,
+        play,
+        end
     }
 }

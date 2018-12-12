@@ -4,7 +4,7 @@ import org.minhvu.operationrebound.entity.Entity;
 
 import java.awt.*;
 
-public abstract class HealthBar {
+public class HealthBar {
     private static final int WIDTH = 32;
     private static final int HEIGHT = 5;
     private static final int BORDER = 0;

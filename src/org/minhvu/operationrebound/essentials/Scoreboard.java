@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 
-public abstract class Scoreboard {
+public class Scoreboard {
     public static int score = 0;
     public static int bulletsFired = 0;
     public static int bulletsHit = 0;
@@ -72,5 +72,21 @@ public abstract class Scoreboard {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void reset() {
+        score = 0;
+        bulletsFired = 0;
+        bulletsHit = 0;
+        reloads = 0;
+        damageInflicted = 0;
+        damageRecieved = 0;
+        bluePowerUps = 0;
+        redPowerUps = 0;
+        yellowPowerUps = 0;
+        greenPowerUps = 0;
+        totalEnemies = 0;
+        totalPowerUps = 0;
+        timer = System.currentTimeMillis();
     }
 }

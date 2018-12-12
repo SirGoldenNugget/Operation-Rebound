@@ -32,6 +32,8 @@ public class Player extends Entity {
     private int regenTime;
     private int regen;
 
+    private boolean alive;
+
     public Player() {
         sprite = new Sprites().getRandomSprite();
 
@@ -58,6 +60,8 @@ public class Player extends Entity {
         regenTimer = System.currentTimeMillis();
         regenTime = 500;
         regen = 1;
+
+        alive = true;
     }
 
     public void paint(Graphics2D g2d) {
@@ -242,7 +246,8 @@ public class Player extends Entity {
 
         if (health <= 0) {
             Scoreboard.output();
-            System.exit(1);
+            alive = false;
+            Game.getInstance().setState(Game.State.menu);
         }
     }
 
@@ -259,6 +264,10 @@ public class Player extends Entity {
     @Override
     public Rectangle getBounds() {
         return new Rectangle(location.getX(), location.getY(), getDimensions().width - 16, getDimensions().height);
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 }
 
