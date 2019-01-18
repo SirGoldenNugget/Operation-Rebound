@@ -211,7 +211,6 @@ public class Player extends Entity {
         if (!reloading && ammo != maxAmmo) {
             reloading = true;
 
-            Game.getInstance().getSound().START_RELOAD.stop();
             Game.getInstance().getSound().START_RELOAD.setFramePosition(0);
             Game.getInstance().getSound().START_RELOAD.start();
 
@@ -222,7 +221,6 @@ public class Player extends Entity {
                             ammo = maxAmmo;
                             reloading = false;
 
-                            Game.getInstance().getSound().FINISH_RELOAD.stop();
                             Game.getInstance().getSound().FINISH_RELOAD.setFramePosition(0);
                             Game.getInstance().getSound().FINISH_RELOAD.start();
 

@@ -10,6 +10,7 @@ import org.minhvu.operationrebound.essentials.Sound;
 import org.minhvu.operationrebound.map.Maps;
 import org.minhvu.operationrebound.sprite.SpriteSheet;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -107,6 +108,8 @@ public class Game extends JPanel implements Runnable {
         characters = new SpriteSheet("/spritesheet_characters.png");
         maps = new Maps();
         sound = new Sound();
+
+        sound.HELL.loop(Clip.LOOP_CONTINUOUSLY);
 
         // Create The Frame.
         frame = new JFrame("Operation Rebound");

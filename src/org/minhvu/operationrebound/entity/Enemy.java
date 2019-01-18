@@ -93,6 +93,9 @@ public class Enemy extends Entity {
             if (System.currentTimeMillis() - damageTimer > damageTime) {
                 damageTimer = System.currentTimeMillis();
                 player.damage(damage);
+
+                Game.getInstance().getSound().BITE.setFramePosition(0);
+                Game.getInstance().getSound().BITE.start();
             }
         }
     }
@@ -118,6 +121,9 @@ public class Enemy extends Entity {
         if (health <= 0) {
             Scoreboard.score++;
             alive = false;
+
+            Game.getInstance().getSound().DEATH.setFramePosition(0);
+            Game.getInstance().getSound().DEATH.start();
         }
     }
 
