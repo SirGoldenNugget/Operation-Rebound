@@ -6,6 +6,7 @@ import org.minhvu.operationrebound.entity.Player;
 import org.minhvu.operationrebound.entity.PowerUp;
 import org.minhvu.operationrebound.essentials.Menu;
 import org.minhvu.operationrebound.essentials.Scoreboard;
+import org.minhvu.operationrebound.essentials.Sound;
 import org.minhvu.operationrebound.map.Maps;
 import org.minhvu.operationrebound.sprite.SpriteSheet;
 
@@ -28,6 +29,7 @@ public class Game extends JPanel implements Runnable {
     private State state;
     private SpriteSheet characters;
     private Maps maps;
+    private Sound sound;
 
     // Objects Used In The Game.
     private Player player;
@@ -104,6 +106,7 @@ public class Game extends JPanel implements Runnable {
         // Load In The Sprite Sheets.
         characters = new SpriteSheet("/spritesheet_characters.png");
         maps = new Maps();
+        sound = new Sound();
 
         // Create The Frame.
         frame = new JFrame("Operation Rebound");
@@ -283,6 +286,10 @@ public class Game extends JPanel implements Runnable {
 
     public Maps getMaps() {
         return maps;
+    }
+
+    public Sound getSound() {
+        return sound;
     }
 
     public Player getPlayer() {

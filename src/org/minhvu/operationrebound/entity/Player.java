@@ -1,6 +1,6 @@
 package org.minhvu.operationrebound.entity;
 
-import org.minhvu.operationrebound.*;
+import org.minhvu.operationrebound.Game;
 import org.minhvu.operationrebound.essentials.HealthBar;
 import org.minhvu.operationrebound.essentials.Position;
 import org.minhvu.operationrebound.essentials.Scoreboard;
@@ -154,8 +154,12 @@ public class Player extends Entity {
         if (e.getButton() == MouseEvent.BUTTON1 && ammo > 0 && !reloading) {
             Point mousePostion = MouseInfo.getPointerInfo().getLocation();
             double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
+
             Game.getInstance().getBullets().add(new Bullet(new Point((int) (getCenter().x + 24 * Math.cos(angle) + 5 * -Math.sin(angle)),
                     (int) (getCenter().y + 24 * Math.sin(angle) + 5 * Math.cos(angle))), damage, 10, 500, angle));
+
+            Game.getInstance().getSound().FIRE.setFramePosition(0);
+            Game.getInstance().getSound().FIRE.start();
 
             if (--ammo == 0) {
                 reload();
@@ -206,12 +210,22 @@ public class Player extends Entity {
     private void reload() {
         if (!reloading && ammo != maxAmmo) {
             reloading = true;
+
+            Game.getInstance().getSound().START_RELOAD.stop();
+            Game.getInstance().getSound().START_RELOAD.setFramePosition(0);
+            Game.getInstance().getSound().START_RELOAD.start();
+
             new java.util.Timer().schedule(
                     new java.util.TimerTask() {
                         @Override
                         public void run() {
                             ammo = maxAmmo;
                             reloading = false;
+
+                            Game.getInstance().getSound().FINISH_RELOAD.stop();
+                            Game.getInstance().getSound().FINISH_RELOAD.setFramePosition(0);
+                            Game.getInstance().getSound().FINISH_RELOAD.start();
+
                             Scoreboard.reloads++;
                         }
                     }, reloadTime
