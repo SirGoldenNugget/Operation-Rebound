@@ -35,12 +35,12 @@ public class Client extends JPanel implements Runnable {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                box.move = 1;
+                box.move = true;
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                box.move = 0;
+                box.move = false;
             }
         };
 
@@ -97,6 +97,8 @@ public class Client extends JPanel implements Runnable {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        repaint();
     }
 
     @Override

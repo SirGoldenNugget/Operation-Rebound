@@ -36,11 +36,13 @@ public class Server implements Runnable {
 
                 box = (Box) Network.deserialize(receivedPacket.getData());
 
-                System.out.println(box.move);
+                System.out.println("Server " + box.move);
 
-                if (box.move == 1) {
-                    box.x += 1;
+                if (box.move) {
+                    box.x += 32;
                 }
+
+                System.out.println("Server " + box.x);
 
                 InetAddress IPAddress = receivedPacket.getAddress();
                 int port = receivedPacket.getPort();

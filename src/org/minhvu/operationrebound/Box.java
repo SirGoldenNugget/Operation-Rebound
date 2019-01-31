@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Box implements Serializable {
     public double x = 0;
     public double y = 0;
-    public double move = 0;
+    public boolean move = false;
 
     public void paint(Graphics2D g2d) {
         g2d.fillRect((int) x, (int) y, 32, 32);
