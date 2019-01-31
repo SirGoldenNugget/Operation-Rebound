@@ -1,98 +1,68 @@
 package org.minhvu.operationrebound;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
-import java.util.Iterator;
-import java.util.Set;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 
 public class Server implements Runnable {
-    private int port;
-    private boolean running = true;
-    private Selector selector;
-    private ServerSocket serverSocket;
-    private ByteBuffer byteBuffer;
+    private DatagramSocket serverSocket;
+    private byte[] recieveData;
+    private byte[] sendData;
+    private Thread thread;
 
-    public Server(int port, int bufferSize) {
-        this.port = port;
-        this.byteBuffer = ByteBuffer.allocate(bufferSize);
+    private boolean running;
+
+    private Box box = new Box();
+
+    public Server() throws SocketException {
+        serverSocket = new DatagramSocket(10000);
+        recieveData = new byte[1024];
+        sendData = new byte[1024];
+
+        start();
     }
 
-    public void start() {
-        new Thread(this).start();
+    public static void main(String[] args) throws SocketException {
+        new Server();
     }
 
-    @Override
     public void run() {
-        running = true;
-
         while (running) {
             try {
-                int client = selector.select();
+                DatagramPacket receivedPacket = new DatagramPacket(recieveData, recieveData.length);
+                serverSocket.receive(receivedPacket);
 
-                if (client == 0) {
-                    continue;
+                box = (Box) Network.deserialize(receivedPacket.getData());
+
+                System.out.println(box.move);
+
+                if (box.move == 1) {
+                    box.x += 1;
                 }
 
-                Set<SelectionKey> keys = selector.selectedKeys();
-                Iterator<SelectionKey> iterator = keys.iterator();
+                InetAddress IPAddress = receivedPacket.getAddress();
+                int port = receivedPacket.getPort();
 
-                while (iterator.hasNext()) {
-                    SelectionKey key = iterator.next();
+                sendData = Network.serialize(box);
 
-                    if ((key.readyOps() & SelectionKey.OP_ACCEPT) == SelectionKey.OP_ACCEPT) {
-                        Socket socket = serverSocket.accept();
-
-                        System.out.println("Connection from: " + socket);
-
-                        SocketChannel socketChannel = socket.getChannel();
-                        socketChannel.configureBlocking(false);
-                        socketChannel.register(selector, SelectionKey.OP_READ);
-
-                    } else if ((key.readyOps() & SelectionKey.OP_READ) == SelectionKey.OP_READ) {
-                        SocketChannel socketChannel = null;
-                        socketChannel = (SocketChannel) key.channel();
-
-                        boolean connection = readData(socketChannel, byteBuffer);
-
-                        if (!connection) {
-                            key.cancel();
-                            Socket socket = null;
-                            socket = socketChannel.socket();
-                            socket.close();
-                        }
-                    }
-                }
-            } catch (IOException e) {
+                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                serverSocket.send(sendPacket);
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void open() {
-        ServerSocketChannel serverSocketChannel;
-        try {
-            serverSocketChannel = ServerSocketChannel.open();
-            serverSocketChannel.configureBlocking(false);
-            serverSocket = serverSocketChannel.socket();
-
-            InetSocketAddress address = new InetSocketAddress(port);
-            serverSocket.bind(address);
-            selector = Selector.open();
-            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-            System.out.println("Server created on port " + port);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private synchronized void start() {
+        if (running) {
+            return;
         }
-    }
 
-    public boolean readData(SocketChannel socketChannel, ByteBuffer byteBuffer) {
-        return true;
+        running = true;
+
+        thread = new Thread(this);
+        thread.start();
     }
 }
