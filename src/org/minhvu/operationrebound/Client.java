@@ -1,144 +1,106 @@
 package org.minhvu.operationrebound;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.*;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
-public class Client extends JPanel implements Runnable {
-    private DatagramSocket clientSocket;
-    private InetAddress IPAddress;
+/**
+ * A simple Swing-based client for the chat server. Graphically it is a frame with a text
+ * field for entering messages and a textarea to see the whole dialog.
+ * <p>
+ * The client follows the following Chat Protocol. When the server sends "SUBMITNAME" the
+ * client replies with the desired screen name. The server will keep sending "SUBMITNAME"
+ * requests as long as the client submits screen names that are already in use. When the
+ * server sends a line beginning with "NAMEACCEPTED" the client is now allowed to start
+ * sending the server arbitrary strings to be broadcast to all chatters connected to the
+ * server. When the server sends a line beginning with "MESSAGE " then all characters
+ * following this string should be displayed in its message area.
+ */
+public class Client {
+    BufferedReader in;
+    PrintWriter out;
+    JFrame frame = new JFrame("Operation Rebound");
+    JTextField textField = new JTextField(40);
+    JTextArea messageArea = new JTextArea(8, 40);
 
-    private byte[] recieveData;
-    private byte[] sendData;
+    /**
+     * Constructs the client by laying out the GUI and registering a listener with the
+     * textfield so that pressing Return in the listener sends the textfield contents
+     * to the server. Note however that the textfield is initially NOT editable, and
+     * only becomes editable AFTER the client receives the NAMEACCEPTED message from
+     * the server.
+     */
+    public Client() {
 
-    private Thread thread;
-    private JFrame frame;
-    private boolean running;
+        // Layout GUI
+        textField.setEditable(false);
+        messageArea.setEditable(false);
+        frame.getContentPane().add(textField, "North");
+        frame.getContentPane().add(new JScrollPane(messageArea), "Center");
+        frame.pack();
 
-    private Box box = new Box();
-
-    public Client() throws SocketException, UnknownHostException {
-        clientSocket = new DatagramSocket();
-        IPAddress = InetAddress.getByName("localhost");
-
-        recieveData = new byte[1024];
-        sendData = new byte[1024];
-
-        KeyListener keylistener = new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
+        // Add Listeners
+        textField.addActionListener(new ActionListener() {
+            /**
+             * Responds to pressing the enter key by sending the contents of the text
+             * field to the server, then clear it in preparation for the next message.
+             */
+            public void actionPerformed(ActionEvent e) {
+                out.println(textField.getText());
+                textField.setText("");
             }
+        });
+    }
 
-            @Override
-            public void keyPressed(KeyEvent e) {
-                box.move = true;
+    /**
+     * Runs the client as an application with a closeable frame.
+     */
+    public static void main(String[] args) throws Exception {
+        Client client = new Client();
+        client.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        client.frame.setVisible(true);
+        client.run();
+    }
+
+    /**
+     * Prompt for and return the address of the server.
+     */
+    private String getServerAddress() {
+        return "localhost";
+    }
+
+    /**
+     * Prompt for and return the desired screen name.
+     */
+    private String getName() {
+        return JOptionPane.showInputDialog(frame, "Choose a screen name:", "Screen name selection", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    /**
+     * Connects to the server then enters the processing loop.
+     */
+    private void run() throws IOException {
+        // Make connection and initialize streams
+        Socket socket = new Socket(getServerAddress(), 9001);
+        in = new BufferedReader(new InputStreamReader(
+                socket.getInputStream()));
+        out = new PrintWriter(socket.getOutputStream(), true);
+
+        // Process all messages from server, according to the protocol.
+        while (true) {
+            String line = in.readLine();
+            if (line.startsWith("SUBMITNAME")) {
+                out.println(getName());
+            } else if (line.startsWith("NAMEACCEPTED")) {
+                textField.setEditable(true);
+            } else if (line.startsWith("MESSAGE")) {
+                messageArea.append(line.substring(8) + "\n");
             }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                box.move = false;
-            }
-        };
-
-        addKeyListener(keylistener);
-        setFocusable(true);
-
-        // Create The Frame.
-        frame = new JFrame("Operation Rebound");
-        frame.add(this);
-        frame.setSize(800, 800);
-        frame.setExtendedState(JFrame.NORMAL);
-        frame.setUndecorated(false);
-        frame.setResizable(true);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        start();
-    }
-
-    public static void main(String[] args) throws SocketException, UnknownHostException {
-        new Client();
-    }
-
-    @Override
-    public void run() {
-        long lasttime = System.nanoTime();
-        final double ticks = 60.0;
-        double nanoseconds = 1000000000 / ticks;
-        double delta = 0;
-
-        while (running) {
-            long time = System.nanoTime();
-            delta += (time - lasttime) / nanoseconds;
-            lasttime = time;
-
-            if (delta >= 1) {
-                update();
-                delta--;
-            }
         }
-
-        stop();
-    }
-
-    public void update() {
-        try {
-            sendData = Network.serialize(box);
-            DatagramPacket out = new DatagramPacket(this.sendData, this.sendData.length, IPAddress, 10000);
-            clientSocket.send(out);
-
-            DatagramPacket recievePacket = new DatagramPacket(this.recieveData, this.recieveData.length);
-            clientSocket.receive(recievePacket);
-            box = (Box) Network.deserialize(recievePacket.getData());
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        repaint();
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setBackground(Color.WHITE);
-
-        super.paint(g2d);
-
-        box.paint(g2d);
-    }
-
-    private synchronized void start() {
-        if (running) {
-            return;
-        }
-
-        running = true;
-
-        thread = new Thread(this);
-        thread.start();
-    }
-
-    private synchronized void stop() {
-        if (!running) {
-            return;
-        }
-
-        running = false;
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        clientSocket.close();
-
-        System.exit(1);
     }
 }
