@@ -1,11 +1,10 @@
 package org.minhvu.operationrebound;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.UUID;
@@ -22,12 +21,11 @@ import java.util.UUID;
  * server. When the server sends a line beginning with "MESSAGE " then all characters
  * following this string should be displayed in its message area.
  */
-public class Client {
-    BufferedReader in;
-    PrintWriter out;
-    JFrame frame = new JFrame("Operation Rebound");
-    JTextField textField = new JTextField(40);
-    JTextArea messageArea = new JTextArea(8, 40);
+public class Client extends JPanel implements Runnable {
+    private UUID id;
+    private JFrame frame;
+    private boolean running = false;
+    private Thread thread;
 
     /**
      * Constructs the client by laying out the GUI and registering a listener with the
@@ -37,70 +35,126 @@ public class Client {
      * the server.
      */
     public Client() {
+        id = UUID.randomUUID();
 
-        // Layout GUI
-        textField.setEditable(false);
-        messageArea.setEditable(false);
-        frame.getContentPane().add(textField, "North");
-        frame.getContentPane().add(new JScrollPane(messageArea), "Center");
-        frame.pack();
+        frame = new JFrame("Operation Rebound");
+        frame.add(this);
+        frame.setSize(800, 800);
+        frame.setExtendedState(JFrame.NORMAL);
+        frame.setUndecorated(false);
+        frame.setResizable(true);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Add Listeners
-        textField.addActionListener(new ActionListener() {
-            /**
-             * Responds to pressing the enter key by sending the contents of the text
-             * field to the server, then clear it in preparation for the next message.
-             */
-            public void actionPerformed(ActionEvent e) {
-                out.println(textField.getText());
-                textField.setText("");
+        KeyListener keylistener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
             }
-        });
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        };
+
+        addKeyListener(keylistener);
+        setFocusable(true);
+
+        start();
+    }
+
+    private synchronized void start() {
+        if (running) {
+            return;
+        }
+
+        running = true;
+
+        thread = new Thread(this);
+        thread.start();
+    }
+
+    private synchronized void stop() {
+        if (!running) {
+            return;
+        }
+
+        running = false;
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.exit(1);
+    }
+
+    // Used For Painting/Rendering Images.
+    @Override
+    public void paint(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setBackground(Color.WHITE);
+
+        super.paint(g2d);
     }
 
     /**
      * Runs the client as an application with a closeable frame.
      */
-    public static void main(String[] args) throws Exception {
-        Client client = new Client();
-        client.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        client.frame.setVisible(true);
-        client.run();
-    }
-
-    /**
-     * Prompt for and return the address of the server.
-     */
-    private String getServerAddress() {
-        return "localhost";
-    }
-
-    /**
-     * Prompt for and return the desired screen name.
-     */
-    private String getName() {
-        return UUID.randomUUID().toString();
+    public static void main(String[] args) {
+        new Client();
     }
 
     /**
      * Connects to the server then enters the processing loop.
      */
-    private void run() throws IOException {
-        // Make connection and initialize streams
-        Socket socket = new Socket(getServerAddress(), 9001);
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new PrintWriter(socket.getOutputStream(), true);
+    @Override
+    public void run() {
+        long lasttime = System.nanoTime();
+        final double ticks = 60.0;
+        double nanoseconds = 1000000000 / ticks;
+        double delta = 0;
 
-        // Process all messages from server, according to the protocol.
-        while (true) {
-            String line = in.readLine();
-            if (line.startsWith("SUBMITNAME")) {
-                out.println(getName());
-            } else if (line.startsWith("NAMEACCEPTED")) {
-                textField.setEditable(true);
-            } else if (line.startsWith("MESSAGE")) {
-                messageArea.append(line.substring(8) + "\n");
+        while (running) {
+            long time = System.nanoTime();
+            delta += (time - lasttime) / nanoseconds;
+            lasttime = time;
+
+            if (delta >= 1) {
+                update();
+                delta--;
             }
+        }
+
+        stop();
+    }
+
+    private void update() {
+        // Make connection and initialize streams
+        try {
+            Socket socket = new Socket("localhost", 9001);
+
+            Object in = Network.deserialize(socket.getInputStream().readAllBytes());
+            Object out = Network.serialize(socket.getOutputStream());
+            socket.getOutputStream().
+//            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+
+            // Process all messages from server, according to the protocol.
+            while (true) {
+                repaint();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

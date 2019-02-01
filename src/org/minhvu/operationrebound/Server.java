@@ -8,6 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * A multithreaded chat room server. When a client connects the server requests a screen
@@ -29,10 +30,10 @@ public class Server {
     private static final int PORT = 9001;
 
     /**
-     * The set of all users of clients in the chat room. Maintained so that we can check
+     * The set of all clients of clients in the chat room. Maintained so that we can check
      * that new clients are not registering name already in use.
      */
-    private static Set<String> users = new HashSet<>();
+    private static Set<UUID> clients = new HashSet<>();
 
     /**
      * The set of all the print writers for all the clients, used for broadcast.
@@ -58,8 +59,6 @@ public class Server {
     private static class Handler extends Thread {
         private String name;
         private Socket socket;
-        private BufferedReader in;
-        private PrintWriter out;
 
         /**
          * Constructs a handler thread, squirreling away the socket. All the interesting
@@ -90,9 +89,9 @@ public class Server {
                     if (name == null) {
                         return;
                     }
-                    synchronized (users) {
-                        if (!users.contains(name)) {
-                            users.add(name);
+                    synchronized (clients) {
+                        if (!clients.contains(name)) {
+                            clients.add(name);
                             break;
                         }
                     }
@@ -120,7 +119,7 @@ public class Server {
                 // This client is going down! Remove its name and its print writer from
                 //  the sets, and close its socket.
                 if (name != null) {
-                    users.remove(name);
+                    clients.remove(name);
                 }
                 if (out != null) {
                     writers.remove(out);
