@@ -2,12 +2,14 @@ package org.minhvu.operationrebound;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
+import java.net.MulticastSocket;
 
 public class Server implements Runnable {
-    private DatagramSocket serverSocket;
+    private MulticastSocket serverSocket;
+    private InetAddress address;
+    private int port;
+
     private byte[] recieveData;
     private byte[] sendData;
     private Thread thread;
@@ -16,42 +18,49 @@ public class Server implements Runnable {
 
     private Box box = new Box();
 
-    public Server() throws SocketException {
-        serverSocket = new DatagramSocket(10000);
+    public Server() throws IOException {
+        serverSocket = new MulticastSocket();
+        address = InetAddress.getByName("230.0.0.0");
+        serverSocket.joinGroup(address);
+        port = 10000;
+
         recieveData = new byte[1024];
         sendData = new byte[1024];
 
         start();
     }
 
-    public static void main(String[] args) throws SocketException {
+    public static void main(String[] args) throws IOException {
         new Server();
     }
 
     public void run() {
         while (running) {
             try {
-                DatagramPacket receivedPacket = new DatagramPacket(recieveData, recieveData.length);
-                serverSocket.receive(receivedPacket);
+//                DatagramPacket receivedPacket = new DatagramPacket(recieveData, recieveData.length);
+//                serverSocket.receive(receivedPacket);
+//
+//                box = (Box) Network.deserialize(receivedPacket.getData());
+//
+//                System.out.println("Server " + box.move);
+//
+//                if (box.move) {
+//                    box.x += 1;
+//                }
+//
+//                System.out.println("Server " + box.x);
 
-                box = (Box) Network.deserialize(receivedPacket.getData());
-
-                System.out.println("Server " + box.move);
-
-                if (box.move) {
-                    box.x += 1;
+                if (box.x == 32) {
+                    box.x = 64;
+                } else {
+                    box.x = 32;
                 }
-
-                System.out.println("Server " + box.x);
-
-                InetAddress IPAddress = receivedPacket.getAddress();
-                int port = receivedPacket.getPort();
 
                 sendData = Network.serialize(box);
 
-                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, address, port);
                 serverSocket.send(sendPacket);
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -87,5 +96,4 @@ public class Server implements Runnable {
 
         System.exit(1);
     }
-
 }

@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.net.*;
 
 public class Client extends JPanel implements Runnable {
-    private DatagramSocket clientSocket;
-    private InetAddress IPAddress;
+    private MulticastSocket clientSocket;
+    private InetAddress address;
 
     private byte[] recieveData;
     private byte[] sendData;
@@ -20,9 +20,10 @@ public class Client extends JPanel implements Runnable {
 
     private Box box = new Box();
 
-    public Client() throws SocketException, UnknownHostException {
-        clientSocket = new DatagramSocket();
-        IPAddress = InetAddress.getByName("localhost");
+    public Client() throws IOException {
+        clientSocket = new MulticastSocket(10000);
+        address = InetAddress.getByName("230.0.0.0");
+        clientSocket.joinGroup(address);
 
         recieveData = new byte[1024];
         sendData = new byte[1024];
@@ -60,7 +61,7 @@ public class Client extends JPanel implements Runnable {
         start();
     }
 
-    public static void main(String[] args) throws SocketException, UnknownHostException {
+    public static void main(String[] args) throws IOException {
         new Client();
     }
 
@@ -87,9 +88,9 @@ public class Client extends JPanel implements Runnable {
 
     public void update() {
         try {
-            sendData = Network.serialize(box);
-            DatagramPacket out = new DatagramPacket(this.sendData, this.sendData.length, IPAddress, 10000);
-            clientSocket.send(out);
+//            sendData = Network.serialize(box);
+//            DatagramPacket sendPacket = new DatagramPacket(this.sendData, this.sendData.length, address, 10000);
+//            clientSocket.send(sendPacket);
 
             DatagramPacket recievePacket = new DatagramPacket(this.recieveData, this.recieveData.length);
             clientSocket.receive(recievePacket);
@@ -133,7 +134,8 @@ public class Client extends JPanel implements Runnable {
 
         try {
             thread.join();
-        } catch (InterruptedException e) {
+            clientSocket.leaveGroup(address);
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
 
