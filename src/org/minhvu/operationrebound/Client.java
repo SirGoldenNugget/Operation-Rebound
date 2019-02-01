@@ -87,19 +87,37 @@ public class Client extends JPanel implements Runnable {
     }
 
     public void update() {
-        try {
-//            sendData = Network.serialize(box);
-//            DatagramPacket sendPacket = new DatagramPacket(this.sendData, this.sendData.length, address, 10000);
-//            clientSocket.send(sendPacket);
-
-            DatagramPacket recievePacket = new DatagramPacket(this.recieveData, this.recieveData.length);
-            clientSocket.receive(recievePacket);
-            box = (Box) Network.deserialize(recievePacket.getData());
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
         repaint();
+    }
+
+    private class Sender implements Runnable {
+        @Override
+        public void run() {
+            while (running) {
+                try {
+                    sendData = Network.serialize(box);
+                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, address, 10000);
+                    clientSocket.send(sendPacket);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private class Reciever implements Runnable{
+        @Override
+        public void run() {
+            while (running) {
+                try {
+                    DatagramPacket recievePacket = new DatagramPacket(recieveData, recieveData.length);
+                    clientSocket.receive(recievePacket);
+                    box = (Box) Network.deserialize(recievePacket.getData());
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
@@ -123,6 +141,9 @@ public class Client extends JPanel implements Runnable {
 
         thread = new Thread(this);
         thread.start();
+
+        new Thread(new Sender()).start();
+        new Thread(new Reciever()).start();
     }
 
     private synchronized void stop() {

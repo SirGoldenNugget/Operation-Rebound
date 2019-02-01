@@ -5,16 +5,15 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
-public class Server implements Runnable {
+public class Server {
     private MulticastSocket serverSocket;
     private InetAddress address;
     private int port;
 
+    private boolean running;
+
     private byte[] recieveData;
     private byte[] sendData;
-    private Thread thread;
-
-    private boolean running;
 
     private Box box = new Box();
 
@@ -27,73 +26,67 @@ public class Server implements Runnable {
         recieveData = new byte[1024];
         sendData = new byte[1024];
 
-        start();
+        running = true;
+
+        new Thread(new Sender()).start();
+        new Thread(new Reciever()).start();
     }
 
     public static void main(String[] args) throws IOException {
         new Server();
     }
 
-    public void run() {
-        while (running) {
-            try {
-//                DatagramPacket receivedPacket = new DatagramPacket(recieveData, recieveData.length);
-//                serverSocket.receive(receivedPacket);
-//
-//                box = (Box) Network.deserialize(receivedPacket.getData());
-//
-//                System.out.println("Server " + box.move);
-//
-//                if (box.move) {
-//                    box.x += 1;
-//                }
-//
-//                System.out.println("Server " + box.x);
+    private class Sender implements Runnable {
+        @Override
+        public void run() {
+            while (running) {
+                try {
+                    if (box.x == 32) {
+                        box.x = 64;
+                    } else {
+                        box.x = 32;
+                    }
 
-                if (box.x == 32) {
-                    box.x = 64;
-                } else {
-                    box.x = 32;
+                    sendData = Network.serialize(box);
+
+                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, address, port);
+                    serverSocket.send(sendPacket);
+
+                    Thread.yield();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-
-                sendData = Network.serialize(box);
-
-                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, address, port);
-                serverSocket.send(sendPacket);
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        }
 
-        stop();
+            serverSocket.close();
+        }
     }
 
-    private synchronized void start() {
-        if (running) {
-            return;
+    private class Reciever implements Runnable {
+        @Override
+        public void run() {
+            while (running) {
+                try {
+                    DatagramPacket receivedPacket = new DatagramPacket(recieveData, recieveData.length);
+                    serverSocket.receive(receivedPacket);
+
+                    box = (Box) Network.deserialize(receivedPacket.getData());
+
+                    System.out.println("Server " + box.move);
+
+                    if (box.move) {
+                        box.x += 1;
+                    }
+
+                    System.out.println("Server " + box.x);
+
+                    Thread.yield();
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            serverSocket.close();
         }
-
-        running = true;
-
-        thread = new Thread(this);
-        thread.start();
-    }
-
-    private synchronized void stop() {
-        if (!running) {
-            return;
-        }
-
-        running = false;
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        serverSocket.close();
-
-        System.exit(1);
     }
 }
