@@ -29,10 +29,10 @@ public class Server {
     private static final int PORT = 9001;
 
     /**
-     * The set of all names of clients in the chat room. Maintained so that we can check
+     * The set of all users of clients in the chat room. Maintained so that we can check
      * that new clients are not registering name already in use.
      */
-    private static Set<String> names = new HashSet<>();
+    private static Set<String> users = new HashSet<>();
 
     /**
      * The set of all the print writers for all the clients, used for broadcast.
@@ -90,9 +90,9 @@ public class Server {
                     if (name == null) {
                         return;
                     }
-                    synchronized (names) {
-                        if (!names.contains(name)) {
-                            names.add(name);
+                    synchronized (users) {
+                        if (!users.contains(name)) {
+                            users.add(name);
                             break;
                         }
                     }
@@ -120,7 +120,7 @@ public class Server {
                 // This client is going down! Remove its name and its print writer from
                 //  the sets, and close its socket.
                 if (name != null) {
-                    names.remove(name);
+                    users.remove(name);
                 }
                 if (out != null) {
                     writers.remove(out);

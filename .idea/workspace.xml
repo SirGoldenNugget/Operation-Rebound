@@ -7,10 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14df68d3-68dd-436e-9a86-44d1849beb0e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/Box.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/Server.java" afterDir="false" />
     </list>
@@ -36,8 +32,8 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="81" column="88" selection-start-line="81" selection-start-column="88" selection-end-line="81" selection-end-column="88" />
+            <state relative-caret-position="1224">
+              <caret line="111" column="21" lean-forward="true" selection-start-line="111" selection-start-column="21" selection-end-line="111" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,8 +53,8 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="41" column="39" lean-forward="true" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
+            <state relative-caret-position="149">
+              <caret line="27" column="51" lean-forward="true" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -149,8 +145,8 @@
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Player.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/Network.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/Box.java" />
-        <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/Server.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/Client.java" />
+        <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/Server.java" />
       </list>
     </option>
   </component>
@@ -342,12 +338,13 @@
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5042644" side_tool="true" weight="0.32936078" />
       <window_info anchor="right" id="Maven Projects" order="1" weight="0.32995737" />
-      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.3224401" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.3224401" />
       <window_info anchor="bottom" id="Version Control" order="2" sideWeight="0.496208" weight="0.32827735" />
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.32936078" />
       <window_info id="Capture Tool" order="1" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="6" sideWeight="0.6641387" visible="true" weight="0.17857143" />
+      <window_info content_ui="combo" id="Project" order="6" sideWeight="0.6641387" visible="true" weight="0.17857143" />
+      <window_info anchor="bottom" id="Find" order="5" weight="0.32897604" />
       <window_info id="Structure" order="7" sideWeight="0.53954494" side_tool="true" weight="0.21481876" />
       <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
       <window_info id="UI Designer" order="3" />
@@ -363,7 +360,6 @@
       <window_info anchor="right" id="Properties" order="2" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.32936078" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -610,8 +606,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="81" column="88" selection-start-line="81" selection-start-column="88" selection-end-line="81" selection-end-column="88" />
+        <state relative-caret-position="1224">
+          <caret line="111" column="21" lean-forward="true" selection-start-line="111" selection-start-column="21" selection-end-line="111" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -620,8 +616,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="41" column="39" lean-forward="true" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
+        <state relative-caret-position="149">
+          <caret line="27" column="51" lean-forward="true" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
