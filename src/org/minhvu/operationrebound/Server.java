@@ -1,134 +1,91 @@
 package org.minhvu.operationrebound;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 
-/**
- * A multithreaded chat room server. When a client connects the server requests a screen
- * name by sending the client the text "SUBMITNAME", and keeps requesting a name until
- * a unique one is received. After a client submits a unique name, the server acknowledges
- * with "NAMEACCEPTED". Then all messages from that client will be broadcast to all other
- * clients that have submitted a unique screen name. The broadcast messages are prefixed
- * with "MESSAGE ".
- * <p>
- * Because this is just a teaching example to illustrate a simple chat server, there are a
- * few features that have been left out. Two are very useful and belong in production code:
- * <p>
- * 1. The protocol should be enhanced so that the client can
- * send clean disconnect messages to the server.
- * <p>
- * 2. The server should do some logging.
- */
-public class Server {
-    private static final int PORT = 9001;
+public class Server implements Runnable {
+    private DatagramSocket serverSocket;
+    private byte[] recieveData;
+    private byte[] sendData;
+    private Thread thread;
 
-    /**
-     * The set of all clients of clients in the chat room. Maintained so that we can check
-     * that new clients are not registering name already in use.
-     */
-    private static Set<UUID> clients = new HashSet<>();
+    private boolean running;
 
-    /**
-     * The set of all the print writers for all the clients, used for broadcast.
-     */
-    private static Set<PrintWriter> writers = new HashSet<>();
+    private Box box = new Box();
 
-    /**
-     * Application that listens on a port and spawns handler threads.
-     */
-    public static void main(String[] args) throws Exception {
-        System.out.println("The chat server is running.");
-        try (ServerSocket listener = new ServerSocket(PORT)) {
-            while (true) {
-                new Handler(listener.accept()).start();
-            }
-        }
+    public Server() throws SocketException {
+        serverSocket = new DatagramSocket(10000);
+        recieveData = new byte[1024];
+        sendData = new byte[1024];
+
+        start();
     }
 
-    /**
-     * A handler thread class. Handlers are spawned from the listening loop and are
-     * responsible for a dealing with a single client and broadcasting its messages.
-     */
-    private static class Handler extends Thread {
-        private String name;
-        private Socket socket;
+    public static void main(String[] args) throws SocketException {
+        new Server();
+    }
 
-        /**
-         * Constructs a handler thread, squirreling away the socket. All the interesting
-         * work is done in the run method.
-         */
-        public Handler(Socket socket) {
-            this.socket = socket;
-        }
-
-        /**
-         * Services this thread's client by repeatedly requesting a screen name until a
-         * unique one has been submitted, then acknowledges the name and registers the
-         * output stream for the client in a global set, then repeatedly gets inputs and
-         * broadcasts them.
-         */
-        public void run() {
+    public void run() {
+        while (running) {
             try {
+                DatagramPacket receivedPacket = new DatagramPacket(recieveData, recieveData.length);
+                serverSocket.receive(receivedPacket);
 
-                // Create character streams for the socket.
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                out = new PrintWriter(socket.getOutputStream(), true);
+                box = (Box) Network.deserialize(receivedPacket.getData());
 
-                // Request a name from this client. Keep requesting until a new name is
-                // submitted. Add to set while locked.
-                while (true) {
-                    out.println("SUBMITNAME");
-                    name = in.readLine();
-                    if (name == null) {
-                        return;
-                    }
-                    synchronized (clients) {
-                        if (!clients.contains(name)) {
-                            clients.add(name);
-                            break;
-                        }
-                    }
+                System.out.println("Server " + box.move);
+
+                if (box.move) {
+                    box.x += 1;
                 }
 
-                // Now that a successful name has been chosen, add the socket's print writer
-                // to the set of all writers so this client can receive broadcast messages.
-                out.println("NAMEACCEPTED");
-                writers.add(out);
+                System.out.println("Server " + box.x);
 
-                // Accept messages from this client and broadcast them.
-                // Ignore other clients that cannot be broadcasted to.
-                while (true) {
-                    String input = in.readLine();
-                    if (input == null) {
-                        return;
-                    }
-                    for (PrintWriter writer : writers) {
-                        writer.println("MESSAGE " + name + ": " + input);
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println(e);
-            } finally {
-                // This client is going down! Remove its name and its print writer from
-                //  the sets, and close its socket.
-                if (name != null) {
-                    clients.remove(name);
-                }
-                if (out != null) {
-                    writers.remove(out);
-                }
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                }
+                InetAddress IPAddress = receivedPacket.getAddress();
+                int port = receivedPacket.getPort();
+
+                sendData = Network.serialize(box);
+
+                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                serverSocket.send(sendPacket);
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
         }
+
+        stop();
     }
+
+    private synchronized void start() {
+        if (running) {
+            return;
+        }
+
+        running = true;
+
+        thread = new Thread(this);
+        thread.start();
+    }
+
+    private synchronized void stop() {
+        if (!running) {
+            return;
+        }
+
+        running = false;
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        serverSocket.close();
+
+        System.exit(1);
+    }
+
 }
