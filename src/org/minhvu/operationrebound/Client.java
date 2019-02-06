@@ -5,7 +5,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
 
 public class Client extends JPanel implements Runnable {
     private MulticastSocket clientSocket;
@@ -37,6 +39,7 @@ public class Client extends JPanel implements Runnable {
             @Override
             public void keyPressed(KeyEvent e) {
                 box.move = true;
+                System.out.println("key pressed");
             }
 
             @Override
@@ -90,36 +93,6 @@ public class Client extends JPanel implements Runnable {
         repaint();
     }
 
-    private class Sender implements Runnable {
-        @Override
-        public void run() {
-            while (running) {
-                try {
-                    sendData = Network.serialize(box);
-                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, address, 10000);
-                    clientSocket.send(sendPacket);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    private class Reciever implements Runnable{
-        @Override
-        public void run() {
-            while (running) {
-                try {
-                    DatagramPacket recievePacket = new DatagramPacket(recieveData, recieveData.length);
-                    clientSocket.receive(recievePacket);
-                    box = (Box) Network.deserialize(recievePacket.getData());
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -163,5 +136,37 @@ public class Client extends JPanel implements Runnable {
         clientSocket.close();
 
         System.exit(1);
+    }
+
+    private class Sender implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("client sender started");
+            while (running) {
+                try {
+                    sendData = Network.serialize(box);
+                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, address, 10000);
+                    clientSocket.send(sendPacket);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private class Reciever implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("client reciever started");
+            while (running) {
+                try {
+                    DatagramPacket recievePacket = new DatagramPacket(recieveData, recieveData.length);
+                    clientSocket.receive(recievePacket);
+                    box = (Box) Network.deserialize(recievePacket.getData());
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

@@ -2,11 +2,12 @@ package org.minhvu.operationrebound;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.MulticastSocket;
 
 public class Server {
-    private MulticastSocket serverSocket;
+//    private MulticastSocket serverSocket;
+    private DatagramSocket serverSocket;
     private InetAddress address;
     private int port;
 
@@ -18,9 +19,10 @@ public class Server {
     private Box box = new Box();
 
     public Server() throws IOException {
-        serverSocket = new MulticastSocket();
+//        serverSocket = new MulticastSocket();
+        serverSocket = new DatagramSocket();
         address = InetAddress.getByName("230.0.0.0");
-        serverSocket.joinGroup(address);
+//        serverSocket.joinGroup(address);
         port = 10000;
 
         recieveData = new byte[1024];
@@ -65,6 +67,8 @@ public class Server {
     private class Reciever implements Runnable {
         @Override
         public void run() {
+            System.out.println("server reciever started");
+
             while (running) {
                 try {
                     DatagramPacket receivedPacket = new DatagramPacket(recieveData, recieveData.length);
