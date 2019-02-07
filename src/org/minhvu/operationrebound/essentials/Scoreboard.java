@@ -1,10 +1,6 @@
 package org.minhvu.operationrebound.essentials;
 
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Calendar;
 
 public class Scoreboard {
     public static int score = 0;
@@ -35,9 +31,9 @@ public class Scoreboard {
     }
 
     public static void output() {
-        try {
-            FileWriter fileWriter = new FileWriter(Calendar.getInstance().getTime().getTime() + ".txt");
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//        try {
+//            FileWriter fileWriter = new FileWriter(Calendar.getInstance().getTime().getTime() + ".txt");
+//            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 //            bufferedWriter.write("Time: " + time + "s");
 //            bufferedWriter.newLine();
 //            bufferedWriter.write("Score: " + score);
@@ -69,9 +65,9 @@ public class Scoreboard {
 //            bufferedWriter.write("Enemies Spawned: " + totalEnemies);
 //            bufferedWriter.newLine();
 //            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public static void reset() {

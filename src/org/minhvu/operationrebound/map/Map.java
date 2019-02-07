@@ -2,6 +2,8 @@ package org.minhvu.operationrebound.map;
 
 import org.minhvu.operationrebound.sprite.SpriteSheet;
 
+import java.awt.*;
+
 public class Map {
     private SpriteSheet spritesheet;
     private int[][] collisionMap;
@@ -17,5 +19,9 @@ public class Map {
 
     public int[][] getCollisionMap() {
         return collisionMap;
+    }
+
+    public Dimension getSize() {
+        return new Dimension(collisionMap[0].length * 64, collisionMap.length * 64);
     }
 }

@@ -4,6 +4,7 @@ import org.minhvu.operationrebound.entity.Bullet;
 import org.minhvu.operationrebound.entity.Enemy;
 import org.minhvu.operationrebound.entity.Player;
 import org.minhvu.operationrebound.entity.PowerUp;
+import org.minhvu.operationrebound.essentials.Camera;
 import org.minhvu.operationrebound.essentials.Menu;
 import org.minhvu.operationrebound.essentials.Scoreboard;
 import org.minhvu.operationrebound.essentials.Sound;
@@ -24,6 +25,7 @@ public class Game extends JPanel implements Runnable {
     // Used For Accessing JPanel Method.
     private static Game instance;
     private JFrame frame;
+    private Camera camera;
     private boolean running = false;
     private Thread thread;
 
@@ -114,12 +116,14 @@ public class Game extends JPanel implements Runnable {
         // Create The Frame.
         frame = new JFrame("Operation Rebound");
         frame.add(this);
-        frame.setSize(1920, 1080);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setUndecorated(true);
+        frame.setSize(/*Toolkit.getDefaultToolkit().getScreenSize().width*/800, /*Toolkit.getDefaultToolkit().getScreenSize().height*/800);
+//        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setUndecorated(false);
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        camera = new Camera();
 
         // Initialize Everyhing.
         player = new Player();
@@ -210,6 +214,7 @@ public class Game extends JPanel implements Runnable {
             powerups.removeIf(powerup -> !powerup.isAlive());
 
             player.update();
+            camera.update();
         }
 
         repaint();
@@ -238,9 +243,11 @@ public class Game extends JPanel implements Runnable {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setBackground(Color.WHITE);
+        g2d.setBackground(Color.BLACK);
 
         super.paint(g2d);
+
+        g2d.translate(camera.getDisplacement().x, camera.getDisplacement().y);
 
         g2d.drawImage(maps.getCurrentMap().getSpritesheet().getSpritesheet(), 0, 0, Game.getInstance());
 

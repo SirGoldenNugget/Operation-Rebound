@@ -15,10 +15,10 @@ import java.awt.geom.AffineTransform;
 public class Player extends Entity {
     private Sprite sprite;
 
-    private boolean uppressed;
-    private boolean downpressed;
-    private boolean leftpressed;
-    private boolean rightpressed;
+    private boolean upPressed;
+    private boolean downPressed;
+    private boolean leftPressed;
+    private boolean rightPressed;
 
 //    private boolean mousePressed;
 
@@ -42,10 +42,10 @@ public class Player extends Entity {
         location = new Position((Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) / 2, Game.getInstance().getHeight() - 200);
         speed = 3;
 
-        uppressed = false;
-        downpressed = false;
-        leftpressed = false;
-        rightpressed = false;
+        upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
 
 //        mousePressed = false;
 
@@ -78,7 +78,9 @@ public class Player extends Entity {
     }
 
     public void update() {
-        if (uppressed) {
+        if (upPressed) {
+            double speed = (leftPressed || rightPressed) ? this.speed * Math.sqrt(2) / 2 : this.speed;
+
             if (location.y - speed > 0) {
                 location.y -= speed;
             }
@@ -88,8 +90,10 @@ public class Player extends Entity {
             }
         }
 
-        if (downpressed) {
-            if (location.y + speed < Game.getInstance().getHeight() - image.getHeight(Game.getInstance())) {
+        if (downPressed) {
+            double speed = (leftPressed || rightPressed) ? this.speed * Math.sqrt(2) / 2 : this.speed;
+
+            if (location.y + speed < Game.getInstance().getMaps().getCurrentMap().getSize().height - image.getHeight(Game.getInstance())) {
                 location.y += speed;
             }
 
@@ -98,7 +102,9 @@ public class Player extends Entity {
             }
         }
 
-        if (leftpressed) {
+        if (leftPressed) {
+            double speed = (upPressed || downPressed) ? this.speed * Math.sqrt(2) / 2 : this.speed;
+
             if (location.x - speed > 0) {
                 location.x -= speed;
             }
@@ -108,8 +114,10 @@ public class Player extends Entity {
             }
         }
 
-        if (rightpressed) {
-            if (location.x + speed < Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) {
+        if (rightPressed) {
+            double speed = (upPressed || downPressed) ? this.speed * Math.sqrt(2) / 2 : this.speed;
+
+            if (location.x + speed < Game.getInstance().getMaps().getCurrentMap().getSize().width - image.getWidth(Game.getInstance())) {
                 location.x += speed;
             }
 
@@ -169,37 +177,37 @@ public class Player extends Entity {
 
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W) {
-            uppressed = false;
+            upPressed = false;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_S) {
-            downpressed = false;
+            downPressed = false;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_A) {
-            leftpressed = false;
+            leftPressed = false;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_D) {
-            rightpressed = false;
+            rightPressed = false;
         }
     }
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W) {
-            uppressed = true;
+            upPressed = true;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_S) {
-            downpressed = true;
+            downPressed = true;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_A) {
-            leftpressed = true;
+            leftPressed = true;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_D) {
-            rightpressed = true;
+            rightPressed = true;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_R) {
