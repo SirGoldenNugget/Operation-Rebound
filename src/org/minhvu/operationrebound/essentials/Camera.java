@@ -62,9 +62,9 @@ public class Camera {
 //            camera.y = minOffset.y;
 //        }
 
-        double dist = 0.25;
-        camera.x = (mousePosition.x - camera.x - Game.getInstance().getPlayer().getLocation().x) * dist + Game.getInstance().getPlayer().getLocation().x;
-        camera.y = (mousePosition.y - camera.y - Game.getInstance().getPlayer().getLocation().y) * dist + Game.getInstance().getPlayer().getLocation().y;
+        double dist = 0.1;
+        camera.x = (mousePosition.x - Game.getInstance().getPlayer().getLocation().x) * dist;
+        camera.y = (mousePosition.y - Game.getInstance().getPlayer().getLocation().y) * dist;
         System.out.println(Game.getInstance().getPlayer().getLocation().x + " " + Game.getInstance().getPlayer().getLocation().y);
         System.out.println(camera.x + " " + camera.y);
     }
