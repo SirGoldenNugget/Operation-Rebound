@@ -8,6 +8,14 @@
   <component name="ChangeListManager">
     <list default="true" id="14df68d3-68dd-436e-9a86-44d1849beb0e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/map/Maps.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/map/Maps.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Maps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Maps.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="239" column="42" lean-forward="true" selection-start-line="239" selection-start-column="42" selection-end-line="239" selection-end-column="42" />
+            <state relative-caret-position="214">
+              <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
             </state>
           </provider>
         </entry>
@@ -31,8 +39,8 @@
       <file leaf-file-name="Camera.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Camera.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="9" lean-forward="true" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+            <state relative-caret-position="353">
+              <caret line="69" column="5" lean-forward="true" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -43,7 +51,7 @@
       <file leaf-file-name="Menu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="27">
               <caret line="25" column="47" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
             </state>
           </provider>
@@ -58,11 +66,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="140" column="13" lean-forward="true" selection-start-line="140" selection-start-column="13" selection-end-line="140" selection-end-column="13" />
+            <state relative-caret-position="119">
+              <caret line="163" column="77" lean-forward="true" selection-start-line="163" selection-start-column="77" selection-end-line="163" selection-end-column="77" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Entity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Entity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="71">
+              <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -70,8 +87,8 @@
       <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Map.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="435">
+              <caret line="39" column="82" selection-start-line="39" selection-start-column="82" selection-end-line="39" selection-end-column="82" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -79,32 +96,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Enemy.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Enemy.java">
+      <file leaf-file-name="Maps.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Maps.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1989">
-              <caret line="123" selection-start-line="123" selection-end-line="123" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PowerUp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/PowerUp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sound.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Sound.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="-102">
+              <caret line="35" column="106" selection-start-line="35" selection-start-column="106" selection-end-line="35" selection-end-column="106" />
             </state>
           </provider>
         </entry>
@@ -166,15 +162,16 @@
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/Player.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/Entity.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/Enemy.java" />
-        <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Maps.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/HealthBar.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Menu.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Sound.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Enemy.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Scoreboard.java" />
+        <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Entity.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Map.java" />
-        <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Camera.java" />
+        <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Maps.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Player.java" />
+        <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Camera.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java" />
       </list>
     </option>
@@ -352,12 +349,12 @@
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5042644" side_tool="true" weight="0.32936078" />
       <window_info anchor="right" id="Maven Projects" order="1" weight="0.32995737" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.32570806" />
+      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.32570806" />
       <window_info anchor="bottom" id="Version Control" order="2" sideWeight="0.496208" weight="0.32827735" />
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.32936078" />
       <window_info id="Capture Tool" order="1" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="6" sideWeight="0.6641387" visible="true" weight="0.26385927" />
+      <window_info active="true" content_ui="combo" id="Project" order="6" sideWeight="0.6641387" visible="true" weight="0.26385927" />
       <window_info id="Structure" order="7" sideWeight="0.53954494" side_tool="true" weight="0.21481876" />
       <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
       <window_info id="UI Designer" order="3" />
@@ -378,6 +375,11 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Maps.java">
@@ -553,31 +555,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/sprite/SpriteSheet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/PowerUp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/sprite/Sprite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -605,34 +586,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Menu.java">
+    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/sprite/SpriteSheet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="25" column="47" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
+        <state relative-caret-position="68">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Maps.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="88" column="36" lean-forward="true" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
+        <state relative-caret-position="-102">
+          <caret line="35" column="106" selection-start-line="35" selection-start-column="106" selection-end-line="35" selection-end-column="106" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="435">
+          <caret line="39" column="82" selection-start-line="39" selection-start-column="82" selection-end-line="39" selection-end-column="82" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Menu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="25" column="47" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/sprite/Sprite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="163" column="77" lean-forward="true" selection-start-line="163" selection-start-column="77" selection-end-line="163" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Camera.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="9" lean-forward="true" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+        <state relative-caret-position="353">
+          <caret line="69" column="5" lean-forward="true" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -641,15 +650,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="239" column="42" lean-forward="true" selection-start-line="239" selection-start-column="42" selection-end-line="239" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="140" column="13" lean-forward="true" selection-start-line="140" selection-start-column="13" selection-end-line="140" selection-end-column="13" />
+        <state relative-caret-position="214">
+          <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
         </state>
       </provider>
     </entry>

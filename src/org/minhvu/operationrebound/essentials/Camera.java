@@ -17,20 +17,56 @@ public class Camera {
     }
 
     public void update() {
-        camera.x = Game.getInstance().getPlayer().getLocation().x - Game.getInstance().getFrame().getWidth() / 2;
-        camera.y = Game.getInstance().getPlayer().getLocation().y - Game.getInstance().getFrame().getHeight() / 2;
+        Point mousePosition = MouseInfo.getPointerInfo().getLocation();
+//        Point difference = new Point(mousePosition.x - Game.getInstance().getPlayer().getCenter().x, mousePosition.y - Game.getInstance().getPlayer().getCenter().y);
 
-        if (camera.x > maxOffset.x) {
-            camera.x = maxOffset.x;
-        } else if (camera.x < minOffset.x) {
-            camera.x = minOffset.x;
-        }
+//        System.out.println(difference.x + " " + difference.y);
+//        System.out.println(Game.getInstance().getFrame().getWidth() + " " + Game.getInstance().getFrame().getHeight());
 
-        if (camera.y > maxOffset.y) {
-            camera.y = maxOffset.y;
-        } else if (camera.y < minOffset.y) {
-            camera.y = minOffset.y;
-        }
+//        if (difference.x > Game.getInstance().getFrame().getWidth() * 0.25) {
+//            difference.x = (int) (Game.getInstance().getFrame().getWidth() * 0.25);
+//        }
+//
+//        if (difference.y > Game.getInstance().getFrame().getHeight() * 0.25) {
+//            difference.y = (int) (Game.getInstance().getFrame().getHeight() * 0.25);
+//        }
+
+//        camera.x = Game.getInstance().getPlayer().getLocation().x - Game.getInstance().getFrame().getWidth() / 2;
+//        camera.x = Game.getInstance().getPlayer().getLocation().x - Game.getInstance().getFrame().getWidth() / 2 + difference.x;
+//        camera.y = Game.getInstance().getPlayer().getLocation().y - Game.getInstance().getFrame().getHeight() / 2;
+//        camera.y = Game.getInstance().getPlayer().getLocation().y - Game.getInstance().getFrame().getHeight() / 2 + difference.y;
+//
+//
+//        Point difference = new Point(mousePosition.x - Game.getInstance().getPlayer().getCenter().x + camera.getX(), mousePosition.y - Game.getInstance().getPlayer().getCenter().y + camera.getY());
+//
+//        if (difference.x > Game.getInstance().getFrame().getWidth() * 0.25) {
+//            difference.x = (int) (Game.getInstance().getFrame().getWidth() * 0.25);
+//        }
+//        if (difference.y > Game.getInstance().getFrame().getHeight() * 0.25) {
+//            difference.y = (int) (Game.getInstance().getFrame().getHeight() * 0.25);
+//        }
+//
+//
+//        camera.x = Game.getInstance().getPlayer().getLocation().x - Game.getInstance().getFrame().getWidth() / 2 + difference.x;
+//        camera.y = Game.getInstance().getPlayer().getLocation().y - Game.getInstance().getFrame().getHeight() / 2 + difference.y;
+//
+//        if (camera.x > maxOffset.x) {
+//            camera.x = maxOffset.x;
+//        } else if (camera.x < minOffset.x) {
+//            camera.x = minOffset.x;
+//        }
+//
+//        if (camera.y > maxOffset.y) {
+//            camera.y = maxOffset.y;
+//        } else if (camera.y < minOffset.y) {
+//            camera.y = minOffset.y;
+//        }
+
+        double dist = 0.25;
+        camera.x = (mousePosition.x - camera.x - Game.getInstance().getPlayer().getLocation().x) * dist + Game.getInstance().getPlayer().getLocation().x;
+        camera.y = (mousePosition.y - camera.y - Game.getInstance().getPlayer().getLocation().y) * dist + Game.getInstance().getPlayer().getLocation().y;
+        System.out.println(Game.getInstance().getPlayer().getLocation().x + " " + Game.getInstance().getPlayer().getLocation().y);
+        System.out.println(camera.x + " " + camera.y);
     }
 
     public Point getDisplacement() {

@@ -116,7 +116,9 @@ public class Game extends JPanel implements Runnable {
         // Create The Frame.
         frame = new JFrame("Operation Rebound");
         frame.add(this);
-        frame.setSize(/*Toolkit.getDefaultToolkit().getScreenSize().width*/800, /*Toolkit.getDefaultToolkit().getScreenSize().height*/800);
+        frame.setSize(800, 800);
+        frame.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - frame.getSize().width) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - frame.getSize().height) / 2);
+//        frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
 //        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(false);
         frame.setResizable(false);
@@ -144,6 +146,10 @@ public class Game extends JPanel implements Runnable {
     // Entry Point.
     public static void main(String[] args) {
         new Game();
+    }
+
+    public static Game getInstance() {
+        return instance;
     }
 
     // Starts The Thread.
@@ -248,7 +254,6 @@ public class Game extends JPanel implements Runnable {
         super.paint(g2d);
 
         g2d.translate(camera.getDisplacement().x, camera.getDisplacement().y);
-
         g2d.drawImage(maps.getCurrentMap().getSpritesheet().getSpritesheet(), 0, 0, Game.getInstance());
 
         if (state.equals(State.play)) {
@@ -282,10 +287,6 @@ public class Game extends JPanel implements Runnable {
         Scoreboard.reset();
     }
 
-    public static Game getInstance() {
-        return instance;
-    }
-
     public Frame getFrame() {
         return frame;
     }
@@ -316,6 +317,10 @@ public class Game extends JPanel implements Runnable {
 
     public CopyOnWriteArrayList getPowerUps() {
         return powerups;
+    }
+
+    public Point getMousePosition() {
+        return new Point(MouseInfo.getPointerInfo().getLocation().x - camera.getDisplacement().x, MouseInfo.getPointerInfo().getLocation().y - camera.getDisplacement().y);
     }
 
     public void setState(State state) {

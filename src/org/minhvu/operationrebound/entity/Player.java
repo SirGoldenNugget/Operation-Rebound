@@ -2,7 +2,6 @@ package org.minhvu.operationrebound.entity;
 
 import org.minhvu.operationrebound.Game;
 import org.minhvu.operationrebound.essentials.HealthBar;
-import org.minhvu.operationrebound.essentials.Position;
 import org.minhvu.operationrebound.essentials.Scoreboard;
 import org.minhvu.operationrebound.sprite.Sprite;
 import org.minhvu.operationrebound.sprite.Sprites;
@@ -39,7 +38,7 @@ public class Player extends Entity {
 
         image = sprite.getPistolImage();
 
-        location = new Position((Game.getInstance().getWidth() - image.getWidth(Game.getInstance())) / 2, Game.getInstance().getHeight() - 200);
+        location = Game.getInstance().getMaps().getCurrentMap().getPlayerStart();
         speed = 3;
 
         upPressed = false;
@@ -69,8 +68,9 @@ public class Player extends Entity {
 
         HealthBar.paint(g2d, this);
 
-        Point mousePostion = MouseInfo.getPointerInfo().getLocation();
-        double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
+//        Point mousePostion = MouseInfo.getPointerInfo().getLocation();
+//        double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
+        double angle = Math.atan2(Game.getInstance().getMousePosition().y - getCenter().y, Game.getInstance().getMousePosition().x - getCenter().x);
 
         g2d.rotate(angle, getCenter().x, getCenter().y);
         g2d.drawImage(image, location.getX(), location.getY(), Game.getInstance());
@@ -160,8 +160,8 @@ public class Player extends Entity {
 
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1 && ammo > 0 && !reloading) {
-            Point mousePostion = MouseInfo.getPointerInfo().getLocation();
-            double angle = Math.atan2(mousePostion.y - getCenter().y, mousePostion.x - getCenter().x);
+//            Point mousePosition = MouseInfo.getPointerInfo().getLocation();
+            double angle = Math.atan2(Game.getInstance().getMousePosition().y - getCenter().y, Game.getInstance().getMousePosition().x - getCenter().x);
 
             Game.getInstance().getBullets().add(new Bullet(new Point((int) (getCenter().x + 24 * Math.cos(angle) + 5 * -Math.sin(angle)),
                     (int) (getCenter().y + 24 * Math.sin(angle) + 5 * Math.cos(angle))), damage, 10, 500, angle));

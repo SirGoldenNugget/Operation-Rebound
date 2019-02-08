@@ -2,6 +2,7 @@ package org.minhvu.operationrebound.entity;
 
 import org.minhvu.operationrebound.Game;
 import org.minhvu.operationrebound.essentials.Position;
+import org.minhvu.operationrebound.map.Maps;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -27,7 +28,9 @@ public abstract class Entity {
     protected boolean hasCollision() {
         for (int i = 0; i < Game.getInstance().getMaps().getCurrentMap().getCollisionMap().length; ++i) {
             for (int j = 0; j < Game.getInstance().getMaps().getCurrentMap().getCollisionMap()[i].length; ++j) {
-                if (Game.getInstance().getMaps().getCurrentMap().getCollisionMap()[i][j] != 0 && getBounds().intersects(new Rectangle2D.Float(j * 64, i * 64, 64, 64))) {
+                int value = Game.getInstance().getMaps().getCurrentMap().getCollisionMap()[i][j];
+
+                if ((value == Maps.unpassable || value == Maps.shootable) && getBounds().intersects(new Rectangle2D.Float(j * 64, i * 64, 64, 64))) {
                     return true;
                 }
             }
