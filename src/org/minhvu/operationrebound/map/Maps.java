@@ -76,16 +76,28 @@ public class Maps {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         };
 
+        int[][] massiveCollisionMap = new int[60][60];
+
+        for (int i = 0; i < massiveCollisionMap.length; ++i) {
+            for (int j = 0; j < massiveCollisionMap[i].length; ++j) {
+                massiveCollisionMap[j][i] = 0;
+            }
+        }
+
+        massiveCollisionMap[30][30] = 9;
+
         Map suburbia = new Map(new SpriteSheet("/suburbia.png"), suburbiaCollisionMap);
         Map stonecold = new Map(new SpriteSheet("/stonecold.png"), stonecoldCollisionMap);
         Map cakeland = new Map(new SpriteSheet("/cakeland.png"), cakelandCollisionMap);
+        Map massive = new Map(new SpriteSheet("/massive.png"), massiveCollisionMap);
 
         maps.put("suburbia", suburbia);
         maps.put("stonecold", stonecold);
         maps.put("cakeland", cakeland);
+        maps.put("massive", massive);
 
 //        currentMap = (String) maps.keySet().toArray()[(int) (maps.keySet().size() * Math.random())];
-        currentMap = "stonecold";
+        currentMap = "massive";
     }
 
     public Map getCurrentMap() {

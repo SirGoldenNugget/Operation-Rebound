@@ -125,13 +125,13 @@ public class Game extends JPanel implements Runnable {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        camera = new Camera();
-
         // Initialize Everyhing.
         player = new Player();
         bullets = new CopyOnWriteArrayList<>();
         enemies = new CopyOnWriteArrayList<>();
         powerups = new CopyOnWriteArrayList<>();
+
+        camera = new Camera();
 
         respawnTimer = System.currentTimeMillis();
         respawnTime = 2000;
