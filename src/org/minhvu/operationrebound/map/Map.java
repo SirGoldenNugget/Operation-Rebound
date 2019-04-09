@@ -21,7 +21,6 @@ public class Map {
                 }
             }
         }
-
     }
 
     public SpriteSheet getSpritesheet() {

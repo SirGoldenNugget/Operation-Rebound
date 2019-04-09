@@ -1,10 +1,10 @@
 package org.minhvu.operationrebound;
 
+import javafx.scene.Camera;
 import org.minhvu.operationrebound.entity.Bullet;
 import org.minhvu.operationrebound.entity.Enemy;
 import org.minhvu.operationrebound.entity.Player;
 import org.minhvu.operationrebound.entity.PowerUp;
-import org.minhvu.operationrebound.essentials.Camera;
 import org.minhvu.operationrebound.essentials.Menu;
 import org.minhvu.operationrebound.essentials.Scoreboard;
 import org.minhvu.operationrebound.essentials.Sound;
@@ -118,7 +118,8 @@ public class Game extends JPanel implements Runnable {
         frame.add(this);
 //        frame.setSize(800, 800);
 //        frame.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - frame.getSize().width) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - frame.getSize().height) / 2);
-        frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+//        frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+        frame.setSize(1920, 1080);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
         frame.setResizable(false);
@@ -130,8 +131,6 @@ public class Game extends JPanel implements Runnable {
         bullets = new CopyOnWriteArrayList<>();
         enemies = new CopyOnWriteArrayList<>();
         powerups = new CopyOnWriteArrayList<>();
-
-        camera = new Camera();
 
         respawnTimer = System.currentTimeMillis();
         respawnTime = 2000;
@@ -220,7 +219,6 @@ public class Game extends JPanel implements Runnable {
             powerups.removeIf(powerup -> !powerup.isAlive());
 
             player.update();
-            camera.update();
         }
 
         repaint();
@@ -253,7 +251,6 @@ public class Game extends JPanel implements Runnable {
 
         super.paint(g2d);
 
-        g2d.translate(camera.getDisplacement().x, camera.getDisplacement().y);
         g2d.drawImage(maps.getCurrentMap().getSpritesheet().getSpritesheet(), 0, 0, Game.getInstance());
 
         if (state.equals(State.play)) {
@@ -320,7 +317,7 @@ public class Game extends JPanel implements Runnable {
     }
 
     public Point getMousePosition() {
-        return new Point(MouseInfo.getPointerInfo().getLocation().x - camera.getDisplacement().x, MouseInfo.getPointerInfo().getLocation().y - camera.getDisplacement().y);
+        return new Point(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
     }
 
     public void setState(State state) {
