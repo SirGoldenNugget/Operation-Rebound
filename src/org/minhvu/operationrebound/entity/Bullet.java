@@ -37,6 +37,7 @@ public class Bullet {
         collisionValues.add(0);
         collisionValues.add(2);
         collisionValues.add(3);
+        collisionValues.add(9);
 
         Scoreboard.bulletsFired++;
     }

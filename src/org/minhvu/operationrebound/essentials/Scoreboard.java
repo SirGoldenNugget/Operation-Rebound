@@ -1,5 +1,8 @@
 package org.minhvu.operationrebound.essentials;
 
+import org.minhvu.operationrebound.Game;
+import org.minhvu.operationrebound.entity.Player;
+
 import java.awt.*;
 
 public class Scoreboard {
@@ -24,10 +27,11 @@ public class Scoreboard {
     public static void paint(Graphics2D g2d) {
         accuracy = bulletsFired > 0 ? (int) ((bulletsHit / (double) bulletsFired) * 100.0) : 0;
         time = (int) ((System.currentTimeMillis() - timer) / 1000.0);
+        Player player = Game.getInstance().getPlayer();
 
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font("calibri", Font.BOLD, 16));
-        g2d.drawString("Time: " + time + "s Score: " + score + " Accuracy: " + accuracy + "%", 10, 20);
+        g2d.drawString("Ammo: " + player.getAmmo() + "/" + player.getMaxAmmo() + " Time: " + time + "s Score: " + score + " Accuracy: " + accuracy + "%", 10, 20);
     }
 
     public static void output() {

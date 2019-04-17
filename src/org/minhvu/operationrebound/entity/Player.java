@@ -243,6 +243,10 @@ public class Player extends Entity {
         this.ammo = ammo;
     }
 
+    public int getAmmo() {
+        return ammo;
+    }
+
     public int getMaxAmmo() {
         return maxAmmo;
     }
