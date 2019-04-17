@@ -17,7 +17,7 @@ public class Map {
         for (int i = 0; i < this.collisionMap.length; ++i) {
             for (int j = 0; j < this.collisionMap[0].length; ++j) {
                 if (collisionMap[i][j] == Maps.start) {
-                    playerStart = new Position(j * 64 + (64 - 49) / 2, i * 64 + (64 - 43) / 2);
+                    playerStart = new Position(j * 64 + 17, i * 64 + 10);
                 }
             }
         }
