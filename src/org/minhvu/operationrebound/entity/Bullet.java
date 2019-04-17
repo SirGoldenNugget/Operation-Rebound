@@ -16,18 +16,20 @@ public class Bullet {
     private double angle;
     private int radius;
     private double damage;
+    private double multiplier;
 
     private boolean alive;
 
     private HashSet collisionValues;
 
-    public Bullet(Point center, double damage, int speed, int range, double angle) {
+    public Bullet(Point center, double damage, int speed, int range, double angle, double multiplier) {
         this.center = center;
         initial = (Point) center.clone();
         this.damage = damage;
         this.speed = speed;
         this.range = range;
         this.angle = angle;
+        this.multiplier = multiplier;
         radius = 5;
 
         alive = true;
@@ -71,6 +73,13 @@ public class Bullet {
         for (Object object : Game.getInstance().getEnemies()) {
             Enemy enemy = (Enemy) object;
             if (getBounds().intersects(enemy.getBounds())) {
+                double damage = this.damage;
+
+                if (getBounds().intersects(enemy.getHeadBounds())) {
+                    damage *= multiplier;
+                    Scoreboard.headshots++;
+                }
+
                 enemy.damage(damage);
                 Enemy.recent = enemy;
 

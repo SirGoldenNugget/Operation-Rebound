@@ -21,10 +21,7 @@ public class Menu {
         if (e.getButton() == MouseEvent.BUTTON1) {
             if (playButton.contains(e.getPoint())) {
                 Game.getInstance().setState(Game.State.play);
-
-                if (!Game.getInstance().getPlayer().isAlive()) {
-                    Game.getInstance().reset();
-                }
+                Game.getInstance().reset();
             } else if (exitButton.contains(e.getPoint())) {
                 System.exit(1);
             }

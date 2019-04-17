@@ -86,6 +86,7 @@ public class PowerUp {
         } else if (color.equals(Color.BLUE)) {
             player.setMaxAmmo(player.getMaxAmmo() + MAX_AMMO);
             player.setAmmo(player.getMaxAmmo());
+            player.setBulletTime(60);
 
             new java.util.Timer().schedule(
                     new java.util.TimerTask() {
@@ -93,6 +94,7 @@ public class PowerUp {
                         public void run() {
                             player.setMaxAmmo(player.getMaxAmmo() - MAX_AMMO);
                             player.setAmmo(player.getMaxAmmo());
+                            player.setBulletTime(120);
                         }
                     }, MAX_AMMO_DURATION
             );

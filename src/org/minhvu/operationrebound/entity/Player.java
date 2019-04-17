@@ -19,13 +19,17 @@ public class Player extends Entity {
     private boolean leftPressed;
     private boolean rightPressed;
 
-//    private boolean mousePressed;
+    private boolean fullAuto;
+    private boolean mousePressed;
 
     private double damage;
     private int ammo;
     private int maxAmmo;
     private int reloadTime;
     private boolean reloading;
+    private long bulletTimer;
+    private long bulletTime;
+    private double multiplier;
 
     private long regenTimer;
     private int regenTime;
@@ -46,7 +50,8 @@ public class Player extends Entity {
         leftPressed = false;
         rightPressed = false;
 
-//        mousePressed = false;
+        fullAuto = false;
+        mousePressed = false;
 
         maxHealth = 100;
         health = maxHealth;
@@ -55,6 +60,9 @@ public class Player extends Entity {
         ammo = maxAmmo;
         reloadTime = 886;
         reloading = false;
+        bulletTimer = System.currentTimeMillis();
+        bulletTime = 120;
+        multiplier = 3;
 
         regenTimer = System.currentTimeMillis();
         regenTime = 500;
@@ -150,21 +158,12 @@ public class Player extends Entity {
         if (health > maxHealth) {
             health = maxHealth;
         }
-    }
 
-//    public void mousePressed(MouseEvent e) {
-//        if (e.getButton() == MouseEvent.BUTTON1) {
-//            mousePressed = true;
-//        }
-//    }
-
-    public void mouseReleased(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1 && ammo > 0 && !reloading) {
-//            Point mousePosition = MouseInfo.getPointerInfo().getLocation();
+        if (mousePressed && ammo > 0 && !reloading && System.currentTimeMillis() - bulletTimer > bulletTime) {
             double angle = Math.atan2(Game.getInstance().getMousePosition().y - getCenter().y, Game.getInstance().getMousePosition().x - getCenter().x);
 
             Game.getInstance().getBullets().add(new Bullet(new Point((int) (getCenter().x + 24 * Math.cos(angle) + 5 * -Math.sin(angle)),
-                    (int) (getCenter().y + 24 * Math.sin(angle) + 5 * Math.cos(angle))), damage, 10, 500, angle));
+                    (int) (getCenter().y + 24 * Math.sin(angle) + 5 * Math.cos(angle))), damage, 10, 500, angle, multiplier));
 
             Game.getInstance().getSound().FIRE.setFramePosition(0);
             Game.getInstance().getSound().FIRE.start();
@@ -172,6 +171,20 @@ public class Player extends Entity {
             if (--ammo == 0) {
                 reload();
             }
+
+            bulletTimer = System.currentTimeMillis();
+        }
+    }
+
+    public void mousePressed(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            mousePressed = true;
+        }
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            mousePressed = false;
         }
     }
 
@@ -239,12 +252,16 @@ public class Player extends Entity {
         }
     }
 
-    public void setAmmo(int ammo) {
-        this.ammo = ammo;
+    public void setBulletTime(int bulletTime) {
+        this.bulletTime = bulletTime;
     }
 
     public int getAmmo() {
         return ammo;
+    }
+
+    public void setAmmo(int ammo) {
+        this.ammo = ammo;
     }
 
     public int getMaxAmmo() {

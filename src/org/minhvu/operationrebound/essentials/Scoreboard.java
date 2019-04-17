@@ -9,6 +9,7 @@ public class Scoreboard {
     public static int score = 0;
     public static int bulletsFired = 0;
     public static int bulletsHit = 0;
+    public static int headshots = 0;
     public static int reloads = 0;
     public static int damageInflicted = 0;
     public static int damageRecieved = 0;
@@ -47,6 +48,8 @@ public class Scoreboard {
 //            bufferedWriter.write("\tBullets Fired: " + bulletsFired);
 //            bufferedWriter.newLine();
 //            bufferedWriter.write("\tBullets Hit: " + bulletsHit);
+//            bufferedWriter.newLine();
+//            bufferedWrtier.write("\tHeadshots: " + headshots);
 //            bufferedWriter.newLine();
 //            bufferedWriter.write("Reloads: " + reloads);
 //            bufferedWriter.newLine();

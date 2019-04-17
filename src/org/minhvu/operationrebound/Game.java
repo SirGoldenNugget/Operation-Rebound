@@ -79,7 +79,9 @@ public class Game extends JPanel implements Runnable {
 
             @Override
             public void mousePressed(MouseEvent e) {
-
+                if (state.equals(State.play)) {
+                    player.mousePressed(e);
+                }
             }
 
             @Override
@@ -245,7 +247,7 @@ public class Game extends JPanel implements Runnable {
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+//        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setBackground(Color.BLACK);
 
@@ -278,9 +280,14 @@ public class Game extends JPanel implements Runnable {
 
     public void reset() {
         player = new Player();
-        bullets = new CopyOnWriteArrayList<>();
-        enemies = new CopyOnWriteArrayList<>();
-        powerups = new CopyOnWriteArrayList<>();
+        bullets.clear();
+
+        for (Enemy enemy : enemies) {
+            enemy.setAlive(false);
+        }
+
+        enemies.clear();
+        powerups.clear();
         Scoreboard.reset();
     }
 

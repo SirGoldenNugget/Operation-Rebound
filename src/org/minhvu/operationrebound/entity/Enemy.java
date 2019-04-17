@@ -142,7 +142,15 @@ public class Enemy extends Entity {
         return new Rectangle(location.getX(), location.getY(), getDimensions().width, getDimensions().height);
     }
 
+    public Rectangle getHeadBounds() {
+        return new Rectangle(location.getX(), location.getY() + 15, 35, 15);
+    }
+
     public boolean isAlive() {
         return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 }
