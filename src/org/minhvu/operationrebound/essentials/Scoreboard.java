@@ -81,6 +81,7 @@ public class Scoreboard {
         score = 0;
         bulletsFired = 0;
         bulletsHit = 0;
+        headshots = 0;
         reloads = 0;
         damageInflicted = 0;
         damageRecieved = 0;

@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class SpriteSheet {
-    private BufferedImage spritesheet;
+    private BufferedImage spriteSheet;
 
     public SpriteSheet(String file) {
         BufferedImage sprite = null;
@@ -18,14 +18,14 @@ public class SpriteSheet {
             e.printStackTrace();
         }
 
-        spritesheet = sprite;
+        spriteSheet = sprite;
     }
 
     public BufferedImage getSprite(int x, int y, int width, int height) {
-        return spritesheet.getSubimage(x, y, width, height);
+        return spriteSheet.getSubimage(x, y, width, height);
     }
 
-    public BufferedImage getSpritesheet() {
-        return spritesheet;
+    public BufferedImage getSpriteSheet() {
+        return spriteSheet;
     }
 }

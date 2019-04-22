@@ -2,6 +2,7 @@ package org.minhvu.operationrebound.map;
 
 import org.minhvu.operationrebound.sprite.SpriteSheet;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 public class Maps {
@@ -89,6 +90,10 @@ public class Maps {
 
     public Map getCurrentMap() {
         return maps.get(currentMap);
+    }
+
+    public Collection<Map> getMaps() {
+        return maps.values();
     }
 }
 

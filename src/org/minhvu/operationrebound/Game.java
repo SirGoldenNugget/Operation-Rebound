@@ -1,6 +1,5 @@
 package org.minhvu.operationrebound;
 
-import javafx.scene.Camera;
 import org.minhvu.operationrebound.entity.Bullet;
 import org.minhvu.operationrebound.entity.Enemy;
 import org.minhvu.operationrebound.entity.Player;
@@ -25,7 +24,6 @@ public class Game extends JPanel implements Runnable {
     // Used For Accessing JPanel Method.
     private static Game instance;
     private JFrame frame;
-    private Camera camera;
     private boolean running = false;
     private Thread thread;
 
@@ -135,7 +133,7 @@ public class Game extends JPanel implements Runnable {
         powerups = new CopyOnWriteArrayList<>();
 
         respawnTimer = System.currentTimeMillis();
-        respawnTime = 2000;
+        respawnTime = 1000;
 
         powerupTimer = System.currentTimeMillis();
         powerupTime = 5000;
@@ -253,7 +251,7 @@ public class Game extends JPanel implements Runnable {
 
         super.paint(g2d);
 
-        g2d.drawImage(maps.getCurrentMap().getSpritesheet().getSpritesheet(), 0, 0, Game.getInstance());
+        g2d.drawImage(maps.getCurrentMap().getSpritesheet().getSpriteSheet(), 0, 0, Game.getInstance());
 
         if (state.equals(State.play)) {
             for (PowerUp powerup : powerups) {

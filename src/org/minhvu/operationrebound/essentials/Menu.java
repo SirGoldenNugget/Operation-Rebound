@@ -1,10 +1,14 @@
 package org.minhvu.operationrebound.essentials;
 
 import org.minhvu.operationrebound.Game;
+import org.minhvu.operationrebound.map.Map;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -29,6 +33,21 @@ public class Menu {
     }
 
     public static void paint(Graphics2D g2d) {
+
+        for (Map map : Game.getInstance().getMaps().getMaps()) {
+            BufferedImage image = map.getSpritesheet().getSpriteSheet();
+
+
+            BufferedImage after = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            AffineTransform at = new AffineTransform();
+            at.scale(0.2, 0.2);
+            g2d.fillRect(90, 90, (int) (after.getWidth() * 0.2 + 10), (int) (after.getWidth() * 0.2 + 10));
+            AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+            after = scaleOp.filter(image, after);
+            g2d.drawImage(after, 100, 100, Game.getInstance());
+        }
+
+        // Painting "Start" and "Exit" buttons.
         g2d.setColor(Color.DARK_GRAY);
         g2d.fill(playButton);
         g2d.fill(exitButton);

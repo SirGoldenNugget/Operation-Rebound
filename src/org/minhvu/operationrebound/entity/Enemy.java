@@ -33,7 +33,7 @@ public class Enemy extends Entity {
         }
 
         speed = 2;
-        maxHealth = 100;
+        maxHealth = Scoreboard.score + 1;
         health = maxHealth;
 
         center = new Point(15, 22);
