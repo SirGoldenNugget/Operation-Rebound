@@ -8,19 +8,11 @@
   <component name="ChangeListManager">
     <list default="true" id="14df68d3-68dd-436e-9a86-44d1849beb0e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Operation_Rebound/Operation-Rebound.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Operation_Rebound/Operation-Rebound.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Game$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Game$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Game$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Game$State.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Game$State.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/essentials/Scoreboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/essentials/Scoreboard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/sprite/SpriteSheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/sprite/SpriteSheet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/essentials/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/essentials/Menu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Enemy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Scoreboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Scoreboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Maps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Maps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/sprite/SpriteSheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/sprite/SpriteSheet.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="31" column="14" lean-forward="true" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+            <state relative-caret-position="68">
+              <caret line="112" selection-start-line="112" selection-end-line="112" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -47,7 +39,7 @@
       <file leaf-file-name="Enemy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Enemy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
+            <state relative-caret-position="561">
               <caret line="39" column="19" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
             </state>
           </provider>
@@ -74,7 +66,7 @@
       <file leaf-file-name="Scoreboard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Scoreboard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1411">
+            <state relative-caret-position="1360">
               <caret line="83" column="22" selection-start-line="83" selection-start-column="22" selection-end-line="83" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -86,7 +78,7 @@
       <file leaf-file-name="Bullet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Bullet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1309">
+            <state relative-caret-position="1207">
               <caret line="77" column="68" selection-start-line="77" selection-start-column="68" selection-end-line="77" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -104,11 +96,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Menu.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Menu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="43" column="107" selection-start-line="43" selection-start-column="107" selection-end-line="43" selection-end-column="107" />
+            <state relative-caret-position="493">
+              <caret line="40" column="31" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -125,8 +117,8 @@
       <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="171" column="25" lean-forward="true" selection-start-line="171" selection-start-column="25" selection-end-line="171" selection-end-column="25" />
+            <state relative-caret-position="2754">
+              <caret line="171" column="25" selection-start-line="171" selection-start-column="25" selection-end-line="171" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -196,7 +188,6 @@
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/PowerUp.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Player.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Bullet.java" />
-        <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/sprite/Sprites.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/sprite/SpriteSheet.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Scoreboard.java" />
@@ -204,13 +195,15 @@
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Enemy.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/map/Maps.java" />
         <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Menu.java" />
+        <option value="$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
+    <option name="x" value="284" />
+    <option name="y" value="242" />
     <option name="width" value="974" />
-    <option name="height" value="1047" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -220,6 +213,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -266,14 +260,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Education/Hayfield Secondary School/11th Grade/Computer Science/Binary Trees" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -374,24 +367,24 @@
     <layout>
       <window_info anchor="right" id="Palette" order="0" />
       <window_info anchor="bottom" id="TODO" order="10" weight="0.32936078" />
-      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49573562" weight="0.3278867" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5042644" side_tool="true" weight="0.32936078" />
       <window_info anchor="right" id="Maven Projects" order="1" weight="0.32995737" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.32570806" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.32570806" />
       <window_info anchor="bottom" id="Version Control" order="2" sideWeight="0.496208" weight="0.32827735" />
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.32936078" />
       <window_info id="Capture Tool" order="1" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="6" sideWeight="0.6641387" visible="true" weight="0.27771854" />
+      <window_info content_ui="combo" id="Project" order="6" sideWeight="0.6641387" visible="true" weight="0.28731343" />
       <window_info id="Structure" order="7" sideWeight="0.53954494" side_tool="true" weight="0.21481876" />
       <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
       <window_info id="UI Designer" order="3" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39869282" />
       <window_info id="Favorites" order="5" sideWeight="0.24160346" side_tool="true" weight="0.21055438" />
+      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49573562" weight="0.3278867" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="right" id="Commander" order="6" weight="0.4" />
       <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="9" sideWeight="0.33586133" side_tool="true" weight="0.20309168" />
@@ -600,7 +593,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Scoreboard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1411">
+        <state relative-caret-position="1360">
           <caret line="83" column="22" selection-start-line="83" selection-start-column="22" selection-end-line="83" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -617,7 +610,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Bullet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1309">
+        <state relative-caret-position="1207">
           <caret line="77" column="68" selection-start-line="77" selection-start-column="68" selection-end-line="77" selection-end-column="68" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -627,8 +620,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="171" column="25" lean-forward="true" selection-start-line="171" selection-start-column="25" selection-end-line="171" selection-end-column="25" />
+        <state relative-caret-position="2754">
+          <caret line="171" column="25" selection-start-line="171" selection-start-column="25" selection-end-line="171" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -641,18 +634,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/Enemy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
+        <state relative-caret-position="561">
           <caret line="39" column="19" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="31" column="14" lean-forward="true" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -672,8 +655,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/essentials/Menu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="43" column="107" selection-start-line="43" selection-start-column="107" selection-end-line="43" selection-end-column="107" />
+        <state relative-caret-position="493">
+          <caret line="40" column="31" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/minhvu/operationrebound/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="112" selection-start-line="112" selection-end-line="112" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

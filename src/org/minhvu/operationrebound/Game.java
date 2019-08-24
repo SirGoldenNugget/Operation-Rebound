@@ -110,6 +110,7 @@ public class Game extends JPanel implements Runnable {
         characters = new SpriteSheet("/spritesheet_characters.png");
         maps = new Maps();
         sound = new Sound();
+        Menu.create();
 
         sound.HELL.loop(Clip.LOOP_CONTINUOUSLY);
 
