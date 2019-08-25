@@ -110,7 +110,6 @@ public class Game extends JPanel implements Runnable {
         characters = new SpriteSheet("/spritesheet_characters.png");
         maps = new Maps();
         sound = new Sound();
-        Menu.create();
 
         sound.HELL.loop(Clip.LOOP_CONTINUOUSLY);
 
@@ -138,6 +137,9 @@ public class Game extends JPanel implements Runnable {
 
         powerupTimer = System.currentTimeMillis();
         powerupTime = 5000;
+
+        // Starts The Menu.
+        Menu.create();
 
         // Begins The Thread.
         start();
