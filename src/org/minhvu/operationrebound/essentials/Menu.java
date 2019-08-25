@@ -15,6 +15,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Menu {
     private static final CopyOnWriteArrayList<Selection> selections = new CopyOnWriteArrayList<>();
+    private static Selection mapSelection;
 
     private static final int WIDTH = 96;
     private static final int HEIGHT = 32;
@@ -23,13 +24,26 @@ public class Menu {
     private static final String START = "Start";
     private static final String EXIT = "Exit";
 
-    private static Rectangle2D playButton = new Rectangle2D.Float((Game.getInstance().getFrame().getSize().width - WIDTH) / 2, (Game.getInstance().getFrame().getSize().height - HEIGHT) / 2, WIDTH, HEIGHT);
-    private static Rectangle2D exitButton = new Rectangle2D.Float((Game.getInstance().getFrame().getSize().width - WIDTH) / 2, (float) (playButton.getY() + HEIGHT + SPACING), WIDTH, HEIGHT);
+    private static Rectangle2D playButton = new Rectangle2D.Float((Game.getInstance().getFrame().getWidth() - WIDTH) / 2, (Game.getInstance().getFrame().getHeight() - HEIGHT) / 2, WIDTH, HEIGHT);
+    private static Rectangle2D exitButton = new Rectangle2D.Float((Game.getInstance().getFrame().getWidth() - WIDTH) / 2, (float) (playButton.getY() + HEIGHT + SPACING), WIDTH, HEIGHT);
 
     public static void create() {
+        int BUFFER = 100;
+        double MAP_SCALE = 0.2;
+        int MAP_BORDER = 10;
+        int MAP_SPACING = (int) (Game.getInstance().getFrame().getHeight() - BUFFER * 2 - Game.getInstance().getMaps().getCurrentMap().getSize().height * MAP_SCALE * Game.getInstance().getMaps().getMaps().size());
+
+        MAP_SPACING /= Game.getInstance().getMaps().getMaps().size();
+        MAP_SPACING += Game.getInstance().getMaps().getCurrentMap().getSize().height * MAP_SCALE;
+        System.out.println(MAP_SPACING);
+
+        int i = 0;
         for (Map map : Game.getInstance().getMaps().getMaps()) {
-            selections.add(new Selection(map.getSpritesheet().getSpriteSheet(), new Point(100, 100), 10, 0.2));
+            selections.add(new Selection(map.getSpritesheet().getSpriteSheet(), new Point(BUFFER, MAP_SPACING * i + BUFFER), MAP_BORDER, MAP_SCALE));
+            ++i;
         }
+
+        mapSelection = selections.get(0);
     }
 
     public static void mouseReleased(MouseEvent e) {
@@ -39,11 +53,18 @@ public class Menu {
                 Game.getInstance().reset();
             } else if (exitButton.contains(e.getPoint())) {
                 System.exit(1);
+            } else {
+                for (Selection selection : selections) {
+                    if (selection.background.contains(e.getPoint())) {
+                        mapSelection = selection;
+                    }
+                }
             }
         }
     }
 
     public static void paint(Graphics2D g2d) {
+        // Paint the Map Selections.
         for (Selection selection : selections) {
             selection.paint(g2d);
         }
@@ -75,8 +96,9 @@ public class Menu {
             this.position = position;
 
             scaled = new BufferedImage(image.getWidth(Game.getInstance()), image.getHeight(Game.getInstance()), BufferedImage.TYPE_INT_ARGB);
-            background = new Rectangle2D.Float(this.position.x - border, this.position.y - border, (float) (image.getWidth(Game.getInstance()) * scale + border * 2), (float) (image.getWidth(Game.getInstance()) * scale + (border * 2)))
-            ;
+            background = new Rectangle2D.Float(this.position.x - border, this.position.y - border,
+                    (float) (image.getWidth(Game.getInstance()) * scale + border * 2),
+                    (float) (image.getHeight(Game.getInstance()) * scale + (border * 2)));
 
             AffineTransform at = new AffineTransform();
             at.scale(scale, scale);
@@ -84,7 +106,11 @@ public class Menu {
         }
 
         public void paint(Graphics2D g2d) {
-            g2d.setColor(Color.DARK_GRAY);
+            if (this.equals(mapSelection)) {
+                g2d.setColor(Color.GREEN);
+            } else {
+                g2d.setColor(Color.DARK_GRAY);
+            }
             g2d.fill(background);
             g2d.drawImage(scaled, position.x, position.y, Game.getInstance());
         }
