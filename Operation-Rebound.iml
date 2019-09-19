@@ -16,6 +16,8 @@
       <sourceFolder url="file://$MODULE_DIR$/res/sprites/Tiles" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/res/sprites/Woman Green" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/res/sprites/Zombie 1" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sprites/Power Ups" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/res/sounds" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

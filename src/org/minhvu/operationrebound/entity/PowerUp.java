@@ -3,10 +3,27 @@ package org.minhvu.operationrebound.entity;
 import org.minhvu.operationrebound.Game;
 import org.minhvu.operationrebound.essentials.Scoreboard;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class PowerUp {
     private static final Color[] colors = {Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE};
+    private static BufferedImage[] images;
+
+    static {
+        try {
+            images = new BufferedImage[]{
+                        ImageIO.read(Game.getInstance().getClass().getResourceAsStream("/sprites/Power Ups/speedx48.jpg")),
+                        ImageIO.read(Game.getInstance().getClass().getResourceAsStream("/sprites/Power Ups/healthx48.jpg")),
+                        ImageIO.read(Game.getInstance().getClass().getResourceAsStream("/sprites/Power Ups/damagex48.jpg")),
+                        ImageIO.read(Game.getInstance().getClass().getResourceAsStream("/sprites/Power Ups/infinityx48.jpg")),
+                };
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static final int HEALTH = 50;
     private static final int DAMAGE = 100;
@@ -22,6 +39,7 @@ public class PowerUp {
     private int duration;
     private boolean alive;
     private Color color;
+    private int index;
 
     public PowerUp() {
         int[][] collisionMap = Game.getInstance().getMaps().getCurrentMap().getCollisionMap();
@@ -34,12 +52,13 @@ public class PowerUp {
             c = (int) (Math.random() * collisionMap.length);
         }
 
-        dimension = new Dimension(32, 32);
+        dimension = new Dimension(48, 48);
         position = new Point(r * 64 + (64 - dimension.width) / 2, c * 64 + (64 - dimension.height) / 2);
         timer = System.currentTimeMillis();
         duration = 10000;
         alive = true;
-        color = colors[(int) (Math.random() * colors.length)];
+        index = (int) (Math.random() * colors.length);
+        color = colors[index];
     }
 
     public Rectangle getBounds() {
@@ -106,8 +125,9 @@ public class PowerUp {
     }
 
     public void paint(Graphics2D g2d) {
-        g2d.setColor(color);
-        g2d.fillRoundRect(position.x, position.y, dimension.width, dimension.height, dimension.width / 2, dimension.height / 2);
+//        g2d.setColor(color);
+//        g2d.fillRoundRect(position.x, position.y, dimension.width, dimension.height, dimension.width / 2, dimension.height / 2);
+        g2d.drawImage(images[index], position.x, position.y, Game.getInstance());
     }
 
     public boolean isAlive() {
