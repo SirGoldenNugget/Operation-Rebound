@@ -6,19 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14df68d3-68dd-436e-9a86-44d1849beb0e" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/res/sprites/Power Ups/damage.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/sprites/Power Ups/health.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/sprites/Power Ups/infinity.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/sprites/Power Ups/speed.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Operation-Rebound.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Operation-Rebound.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/entity/PowerUp$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/entity/PowerUp$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/entity/PowerUp$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/entity/PowerUp$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/entity/PowerUp$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/entity/PowerUp$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/entity/PowerUp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Operation-Rebound/org/minhvu/operationrebound/entity/PowerUp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/PowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/minhvu/operationrebound/entity/PowerUp.java" afterDir="false" />
-    </list>
+    <list default="true" id="14df68d3-68dd-436e-9a86-44d1849beb0e" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
